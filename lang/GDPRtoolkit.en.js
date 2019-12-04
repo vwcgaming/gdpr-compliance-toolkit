@@ -1,5 +1,5 @@
 /*global tarteaucitron */
-tarteaucitron.lang = {
+GDPRtoolkit.lang = {
     "middleBarHead": "☝ 🍪",
     "adblock": "Hello! This site is transparent and lets you chose the 3rd party services you want to allow.",
     "adblock_call": "Please disable your adblocker to start customizing.",

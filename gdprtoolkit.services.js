@@ -1,8 +1,8 @@
-/*global tarteaucitron, ga, Shareaholic, stLight, clicky, top, google, Typekit, FB, ferankReady, IN, stButtons, twttr, PCWidget*/
+/*global GDPRtoolkit, ga, Shareaholic, stLight, clicky, top, google, Typekit, FB, ferankReady, IN, stButtons, twttr, PCWidget*/
 /*jslint regexp: true, nomen: true*/
 
 // generic iframe
-tarteaucitron.services.iframe = {
+GDPRtoolkit.services.iframe = {
     "key": "iframe",
     "type": "other",
     "name": "Web content",
@@ -11,7 +11,7 @@ tarteaucitron.services.iframe = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tac_iframe'], function (x) {
+        GDPRtoolkit.fallback(['tac_iframe'], function (x) {
             var width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
                 url = x.getAttribute("data-url");
@@ -22,16 +22,16 @@ tarteaucitron.services.iframe = {
     "fallback": function () {
         "use strict";
         var id = 'iframe';
-        tarteaucitron.fallback(['tac_iframe'], function (elem) {
+        GDPRtoolkit.fallback(['tac_iframe'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // abtasty
-tarteaucitron.services.abtasty = {
+GDPRtoolkit.services.abtasty = {
     "key": "abtasty",
     "type": "api",
     "name": "ABTasty",
@@ -40,16 +40,16 @@ tarteaucitron.services.abtasty = {
     "cookies": ['ABTasty', 'ABTastySession'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.abtastyID === undefined) {
+        if (GDPRtoolkit.user.abtastyID === undefined) {
             return;
         }
-        tarteaucitron.addScript('//try.abtasty.com/'+tarteaucitron.user.abtastyID+'.js');
+        GDPRtoolkit.addScript('//try.abtasty.com/'+GDPRtoolkit.user.abtastyID+'.js');
     }
 };
 
 
 // yandex metrica
-tarteaucitron.services.metrica = {
+GDPRtoolkit.services.metrica = {
     "key": "metrica",
     "type": "analytic",
     "name": "Yandex Metrica",
@@ -58,17 +58,17 @@ tarteaucitron.services.metrica = {
     "cookies": ['_ym_metrika_enabled','_ym_isad', '_ym_uid', '_ym_d','yabs-sid','_ym_debug','_ym_mp2_substs','_ym_hostIndex','_ym_mp2_track','yandexuid','usst'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.yandexmetrica === undefined) {
+        if (GDPRtoolkit.user.yandexmetrica === undefined) {
             return;
         }
-        tarteaucitron.addScript('https://mc.yandex.ru/metrika/tag.js', '', function() {
+        GDPRtoolkit.addScript('https://mc.yandex.ru/metrika/tag.js', '', function() {
 
             window.ym = window.ym || function () {
                 (window["ym"].a = window["ym"].a || []).push(arguments)
             };
             window["ym"].l = 1 * new Date();
 
-            window.ym(tarteaucitron.user.yandexmetrica, "init", {
+            window.ym(GDPRtoolkit.user.yandexmetrica, "init", {
                 clickmap: true,
                 trackLinks: true,
                 accurateTrackBounce: true,
@@ -79,7 +79,7 @@ tarteaucitron.services.metrica = {
 };
 
 // addthis
-tarteaucitron.services.addthis = {
+GDPRtoolkit.services.addthis = {
     "key": "addthis",
     "type": "social",
     "name": "AddThis",
@@ -88,10 +88,10 @@ tarteaucitron.services.addthis = {
     "cookies": ['__atuvc', '__atuvs'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.addthisPubId === undefined) {
+        if (GDPRtoolkit.user.addthisPubId === undefined) {
             return;
         }
-        if (tarteaucitron.isAjax === true) {
+        if (GDPRtoolkit.isAjax === true) {
             window.addthis = null;
             window._adr = null;
             window._atc = null;
@@ -100,18 +100,18 @@ tarteaucitron.services.addthis = {
             window._atr = null;
             window._atw = null;
         }
-        tarteaucitron.fallback(['addthis_sharing_toolbox'], '');
-        tarteaucitron.addScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=' + tarteaucitron.user.addthisPubId);
+        GDPRtoolkit.fallback(['addthis_sharing_toolbox'], '');
+        GDPRtoolkit.addScript('//s7.addthis.com/js/300/addthis_widget.js#pubid=' + GDPRtoolkit.user.addthisPubId);
     },
     "fallback": function () {
         "use strict";
         var id = 'addthis';
-        tarteaucitron.fallback(['addthis_sharing_toolbox'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['addthis_sharing_toolbox'], GDPRtoolkit.engage(id));
     }
 };
 
 // addtoanyfeed
-tarteaucitron.services.addtoanyfeed = {
+GDPRtoolkit.services.addtoanyfeed = {
     "key": "addtoanyfeed",
     "type": "social",
     "name": "AddToAny (feed)",
@@ -120,22 +120,22 @@ tarteaucitron.services.addtoanyfeed = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.addtoanyfeedUri === undefined) {
+        if (GDPRtoolkit.user.addtoanyfeedUri === undefined) {
             return;
         }
-        tarteaucitron.user.addtoanyfeedSubscribeLink = 'https://www.addtoany.com/subscribe?linkurl=' + tarteaucitron.user.addtoanyfeedUri;
+        GDPRtoolkit.user.addtoanyfeedSubscribeLink = 'https://www.addtoany.com/subscribe?linkurl=' + GDPRtoolkit.user.addtoanyfeedUri;
         window.a2a_config = window.a2a_config || {};
-        window.a2a_config.linkurl = tarteaucitron.user.addtoanyfeedUri;
-        tarteaucitron.addScript('//static.addtoany.com/menu/feed.js');
+        window.a2a_config.linkurl = GDPRtoolkit.user.addtoanyfeedUri;
+        GDPRtoolkit.addScript('//static.addtoany.com/menu/feed.js');
     },
     "fallback": function () {
         "use strict";
-        tarteaucitron.user.addtoanyfeedSubscribeLink = 'https://www.addtoany.com/subscribe?linkurl=' + tarteaucitron.user.addtoanyfeedUri;
+        GDPRtoolkit.user.addtoanyfeedSubscribeLink = 'https://www.addtoany.com/subscribe?linkurl=' + GDPRtoolkit.user.addtoanyfeedUri;
     }
 };
 
 // addtoanyshare
-tarteaucitron.services.addtoanyshare = {
+GDPRtoolkit.services.addtoanyshare = {
     "key": "addtoanyshare",
     "type": "social",
     "name": "AddToAny (share)",
@@ -144,18 +144,18 @@ tarteaucitron.services.addtoanyshare = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tac_addtoanyshare'], '');
-        tarteaucitron.addScript('//static.addtoany.com/menu/page.js');
+        GDPRtoolkit.fallback(['tac_addtoanyshare'], '');
+        GDPRtoolkit.addScript('//static.addtoany.com/menu/page.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'addtoanyshare';
-        tarteaucitron.fallback(['tac_addtoanyshare'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tac_addtoanyshare'], GDPRtoolkit.engage(id));
     }
 };
 
 // aduptech ads
-tarteaucitron.services.aduptech_ads = {
+GDPRtoolkit.services.aduptech_ads = {
     "key": "aduptech_ads",
     "type": "ads",
     "name": "Ad Up Technology (ads)",
@@ -173,9 +173,9 @@ tarteaucitron.services.aduptech_ads = {
             return;
         }
 
-        tarteaucitron.fallback([IDENTIFIER], "");
+        GDPRtoolkit.fallback([IDENTIFIER], "");
 
-        tarteaucitron.addScript(API_URL, "", function() {
+        GDPRtoolkit.addScript(API_URL, "", function() {
             for (var i = 0; i < elements.length; i++) {
                 var element = elements[i];
 
@@ -199,12 +199,12 @@ tarteaucitron.services.aduptech_ads = {
     },
     "fallback": function () {
         "use strict";
-        tarteaucitron.fallback(["aduptech_ads"], tarteaucitron.engage("aduptech_ads"));
+        GDPRtoolkit.fallback(["aduptech_ads"], GDPRtoolkit.engage("aduptech_ads"));
     }
 };
 
 // aduptech conversion
-tarteaucitron.services.aduptech_conversion = {
+GDPRtoolkit.services.aduptech_conversion = {
     "key": "aduptech_conversion",
     "type": "ads",
     "name": "Ad Up Technology (conversion)",
@@ -222,7 +222,7 @@ tarteaucitron.services.aduptech_conversion = {
             return;
         }
 
-        tarteaucitron.fallback([IDENTIFIER], "");
+        GDPRtoolkit.fallback([IDENTIFIER], "");
 
         for (var i = 0; i < elements.length; i++) {
             var element = elements[i];
@@ -265,7 +265,7 @@ tarteaucitron.services.aduptech_conversion = {
 };
 
 // aduptech retargeting
-tarteaucitron.services.aduptech_retargeting = {
+GDPRtoolkit.services.aduptech_retargeting = {
     "key": "aduptech_retargeting",
     "type": "ads",
     "name": "Ad Up Technology (retargeting)",
@@ -283,7 +283,7 @@ tarteaucitron.services.aduptech_retargeting = {
             return;
         }
 
-        tarteaucitron.fallback([IDENTIFIER], "");
+        GDPRtoolkit.fallback([IDENTIFIER], "");
 
         window.AdUpRetargeting = function(api) {
             for (var i = 0; i < elements.length; i++) {
@@ -343,12 +343,12 @@ tarteaucitron.services.aduptech_retargeting = {
             };
         };
 
-        tarteaucitron.addScript(API_URL);
+        GDPRtoolkit.addScript(API_URL);
     }
 };
 
 // alexa
-tarteaucitron.services.alexa = {
+GDPRtoolkit.services.alexa = {
     "key": "alexa",
     "type": "analytic",
     "name": "Alexa",
@@ -357,20 +357,20 @@ tarteaucitron.services.alexa = {
     "cookies": ['__asc', '__auc'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.alexaAccountID === undefined) {
+        if (GDPRtoolkit.user.alexaAccountID === undefined) {
             return;
         }
         window._atrk_opts = {
-            atrk_acct: tarteaucitron.user.alexaAccountID,
+            atrk_acct: GDPRtoolkit.user.alexaAccountID,
             domain: window.location.hostname.match(/[^\.]*\.[^.]*$/)[0],
             dynamic: true
         };
-        tarteaucitron.addScript('https://d31qbv1cthcecs.cloudfront.net/atrk.js');
+        GDPRtoolkit.addScript('https://d31qbv1cthcecs.cloudfront.net/atrk.js');
     }
 };
 
 // amazon
-tarteaucitron.services.amazon = {
+GDPRtoolkit.services.amazon = {
     "key": "amazon",
     "type": "ads",
     "name": "Amazon",
@@ -379,10 +379,10 @@ tarteaucitron.services.amazon = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['amazon_product'], function (x) {
+        GDPRtoolkit.fallback(['amazon_product'], function (x) {
             var amazonId = x.getAttribute("amazonid"),
                 productId = x.getAttribute("productid"),
-                url = '//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=' + tarteaucitron.getLanguage().toUpperCase() + '&source=ss&ref=ss_til&ad_type=product_link&tracking_id=' + amazonId + '&marketplace=amazon&region=' + tarteaucitron.getLanguage().toUpperCase() + '&placement=' + productId + '&asins=' + productId + '&show_border=true&link_opens_in_new_window=true',
+                url = '//ws-eu.amazon-adsystem.com/widgets/q?ServiceVersion=20070822&OneJS=1&Operation=GetAdHtml&MarketPlace=' + GDPRtoolkit.getLanguage().toUpperCase() + '&source=ss&ref=ss_til&ad_type=product_link&tracking_id=' + amazonId + '&marketplace=amazon&region=' + GDPRtoolkit.getLanguage().toUpperCase() + '&placement=' + productId + '&asins=' + productId + '&show_border=true&link_opens_in_new_window=true',
                 iframe = '<iframe style="width:120px;height:240px;" marginwidth="0" marginheight="0" scrolling="no" frameborder="0" src="' + url + '"></iframe>';
 
             return iframe;
@@ -391,12 +391,12 @@ tarteaucitron.services.amazon = {
     "fallback": function () {
         "use strict";
         var id = 'amazon';
-        tarteaucitron.fallback(['amazon_product'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['amazon_product'], GDPRtoolkit.engage(id));
     }
 };
 
 // calameo
-tarteaucitron.services.calameo = {
+GDPRtoolkit.services.calameo = {
     "key": "calameo",
     "type": "video",
     "name": "Calameo",
@@ -405,7 +405,7 @@ tarteaucitron.services.calameo = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['calameo-canvas'], function (x) {
+        GDPRtoolkit.fallback(['calameo-canvas'], function (x) {
             var id = x.getAttribute("data-id"),
                 width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
@@ -417,40 +417,40 @@ tarteaucitron.services.calameo = {
     "fallback": function () {
         "use strict";
         var id = 'calameo';
-        tarteaucitron.fallback(['calameo-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['calameo-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // clicky
-tarteaucitron.services.clicky = {
+GDPRtoolkit.services.clicky = {
     "key": "clicky",
     "type": "analytic",
     "name": "Clicky",
     "uri": "https://clicky.com/terms",
     "needConsent": true,
-    "cookies": ['_jsuid', '_eventqueue', '_referrer_og', '_utm_og', '_first_pageview', 'clicky_olark', 'no_trackyy_' + tarteaucitron.user.clickyId, 'unpoco_' + tarteaucitron.user.clickyId, 'heatmaps_g2g_' + tarteaucitron.user.clickyId],
+    "cookies": ['_jsuid', '_eventqueue', '_referrer_og', '_utm_og', '_first_pageview', 'clicky_olark', 'no_trackyy_' + GDPRtoolkit.user.clickyId, 'unpoco_' + GDPRtoolkit.user.clickyId, 'heatmaps_g2g_' + GDPRtoolkit.user.clickyId],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.clickyId === undefined) {
+        if (GDPRtoolkit.user.clickyId === undefined) {
             return;
         }
-        tarteaucitron.addScript('//static.getclicky.com/js', '', function () {
+        GDPRtoolkit.addScript('//static.getclicky.com/js', '', function () {
             if (typeof clicky.init === 'function') {
-                clicky.init(tarteaucitron.user.clickyId);
+                clicky.init(GDPRtoolkit.user.clickyId);
             }
-            if (typeof tarteaucitron.user.clickyMore === 'function') {
-                tarteaucitron.user.clickyMore();
+            if (typeof GDPRtoolkit.user.clickyMore === 'function') {
+                GDPRtoolkit.user.clickyMore();
             }
         });
     }
 };
 
 // clicmanager
-tarteaucitron.services.clicmanager = {
+GDPRtoolkit.services.clicmanager = {
     "key": "clicmanager",
     "type": "ads",
     "name": "Clicmanager",
@@ -463,7 +463,7 @@ tarteaucitron.services.clicmanager = {
             i,
             uri;
 
-        tarteaucitron.fallback(['clicmanager-canvas'], function (x) {
+        GDPRtoolkit.fallback(['clicmanager-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" c="' + x.getAttribute('c') + '" s="' + x.getAttribute('s') + '" t="' + x.getAttribute('t') + '"></div>';
@@ -475,18 +475,18 @@ tarteaucitron.services.clicmanager = {
             uri += 's=' + document.getElementById(uniqIds[i]).getAttribute('s') + '&';
             uri += 't=' + document.getElementById(uniqIds[i]).getAttribute('t');
 
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'clicmanager';
-        tarteaucitron.fallback(['clicmanager-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['clicmanager-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // contentsquare
-tarteaucitron.services.contentsquare = {
+GDPRtoolkit.services.contentsquare = {
     "key": "contentsquare",
     "type": "api",
     "name": "ContentSquare",
@@ -495,15 +495,15 @@ tarteaucitron.services.contentsquare = {
     "cookies": ['_cs_id', '_cs_s', '_cs_vars', '_cs_ex', '_cs_c', '_cs_optout'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.contentsquareID === undefined) {
+        if (GDPRtoolkit.user.contentsquareID === undefined) {
             return;
         }
-        tarteaucitron.addScript('//t.contentsquare.net/uxa/'+tarteaucitron.user.contentsquareID+'.js');
+        GDPRtoolkit.addScript('//t.contentsquare.net/uxa/'+GDPRtoolkit.user.contentsquareID+'.js');
     }
 };
 
 // crazyegg
-tarteaucitron.services.crazyegg = {
+GDPRtoolkit.services.crazyegg = {
     "key": "crazyegg",
     "type": "analytic",
     "name": "Crazy Egg",
@@ -513,16 +513,16 @@ tarteaucitron.services.crazyegg = {
     "js": function () {
         "use strict";
 
-        if (tarteaucitron.user.crazyeggId === undefined) {
+        if (GDPRtoolkit.user.crazyeggId === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//script.crazyegg.com/pages/scripts/' + tarteaucitron.user.crazyeggId.substr(0, 4) + '/' + tarteaucitron.user.crazyeggId.substr(4, 4) + '.js');
+        GDPRtoolkit.addScript('//script.crazyegg.com/pages/scripts/' + GDPRtoolkit.user.crazyeggId.substr(0, 4) + '/' + GDPRtoolkit.user.crazyeggId.substr(4, 4) + '.js');
     }
 };
 
 // criteo
-tarteaucitron.services.criteo = {
+GDPRtoolkit.services.criteo = {
     "key": "criteo",
     "type": "ads",
     "name": "Criteo",
@@ -536,7 +536,7 @@ tarteaucitron.services.criteo = {
             i,
             uri;
 
-        tarteaucitron.fallback(['criteo-canvas'], function (x) {
+        GDPRtoolkit.fallback(['criteo-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" zoneid="' + x.getAttribute('zoneid') + '"></div>';
@@ -555,18 +555,18 @@ tarteaucitron.services.criteo = {
             uri += ((document.MAX_ct0 !== undefined) && (document.MAX_ct0.substring(0, 4) === 'http')) ? '&ct0=' + encodeURI(document.MAX_ct0) : '';
             uri += (document.mmm_fo !== undefined) ? '&mmm_fo=1' : '';
 
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'criteo';
-        tarteaucitron.fallback(['criteo-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['criteo-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // dailymotion
-tarteaucitron.services.dailymotion = {
+GDPRtoolkit.services.dailymotion = {
     "key": "dailymotion",
     "type": "video",
     "name": "Dailymotion",
@@ -575,7 +575,7 @@ tarteaucitron.services.dailymotion = {
     "cookies": ['ts', 'dmvk', 'hist', 'v1st', 's_vi'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['dailymotion_player'], function (x) {
+        GDPRtoolkit.fallback(['dailymotion_player'], function (x) {
             var video_id = x.getAttribute("videoID"),
                 video_width = x.getAttribute("width"),
                 frame_width = 'width=',
@@ -604,16 +604,16 @@ tarteaucitron.services.dailymotion = {
     "fallback": function () {
         "use strict";
         var id = 'dailymotion';
-        tarteaucitron.fallback(['dailymotion_player'], function (elem) {
+        GDPRtoolkit.fallback(['dailymotion_player'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // dating affiliation
-tarteaucitron.services.datingaffiliation = {
+GDPRtoolkit.services.datingaffiliation = {
     "key": "datingaffiliation",
     "type": "ads",
     "name": "Dating Affiliation",
@@ -622,7 +622,7 @@ tarteaucitron.services.datingaffiliation = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['datingaffiliation-canvas'], function (x) {
+        GDPRtoolkit.fallback(['datingaffiliation-canvas'], function (x) {
             var comfrom = x.getAttribute("data-comfrom"),
                 r = x.getAttribute("data-r"),
                 p = x.getAttribute("data-p"),
@@ -641,16 +641,16 @@ tarteaucitron.services.datingaffiliation = {
     "fallback": function () {
         "use strict";
         var id = 'datingaffiliation';
-        tarteaucitron.fallback(['datingaffiliation-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['datingaffiliation-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // dating affiliation popup
-tarteaucitron.services.datingaffiliationpopup = {
+GDPRtoolkit.services.datingaffiliationpopup = {
     "key": "datingaffiliationpopup",
     "type": "ads",
     "name": "Dating Affiliation (Pop Up)",
@@ -663,7 +663,7 @@ tarteaucitron.services.datingaffiliationpopup = {
             i,
             uri;
 
-        tarteaucitron.fallback(['datingaffiliationpopup-canvas'], function (x) {
+        GDPRtoolkit.fallback(['datingaffiliationpopup-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" uri="' + x.getAttribute('uri') + '" comfrom="' + x.getAttribute('comfrom') + '" promo="' + x.getAttribute('promo') + '" productid="' + x.getAttribute('productid') + '" submitconfig="' + x.getAttribute('submitconfig') + '" ur="' + x.getAttribute('ur') + '" brand="' + x.getAttribute('brand') + '" lang="' + x.getAttribute('lang') + '" cf0="' + x.getAttribute('cf0') + '" cf2="' + x.getAttribute('cf2') + '" subid1="' + x.getAttribute('subid1') + '" cfsa2="' + x.getAttribute('cfsa2') + '" subid2="' + x.getAttribute('subid2') + '" nicheid="' + x.getAttribute('nicheid') + '" degreid="' + x.getAttribute('degreid') + '" bt="' + x.getAttribute('bt') + '" vis="' + x.getAttribute('vis') + '" hid="' + x.getAttribute('hid') + '" snd="' + x.getAttribute('snd') + '" aabd="' + x.getAttribute('aabd') + '" aabs="' + x.getAttribute('aabs') + '"></div>';
@@ -692,18 +692,18 @@ tarteaucitron.services.datingaffiliationpopup = {
             uri += 'aabd=' + document.getElementById(uniqIds[i]).getAttribute('aabd') + '&';
             uri += 'aabs=' + document.getElementById(uniqIds[i]).getAttribute('aabs');
 
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'datingaffiliationpopup';
-        tarteaucitron.fallback(['datingaffiliationpopup-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['datingaffiliationpopup-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // leadforensics
-tarteaucitron.services.leadforensics = {
+GDPRtoolkit.services.leadforensics = {
     "key": "leadforensics",
     "type": "analytic",
     "name": "LeadForensics",
@@ -712,12 +712,12 @@ tarteaucitron.services.leadforensics = {
     "cookies": ['trackalyzer'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.leadforensicsSf14gv === undefined ||
-            tarteaucitron.user.leadforensicsIidentifier === undefined) {
+        if (GDPRtoolkit.user.leadforensicsSf14gv === undefined ||
+            GDPRtoolkit.user.leadforensicsIidentifier === undefined) {
             return;
         }
 
-        window.sf14gv = tarteaucitron.user.leadforensicsSf14gv;
+        window.sf14gv = GDPRtoolkit.user.leadforensicsSf14gv;
 
         (function() {
             var sf14g = document.createElement('script'); sf14g.type = 'text/javascript'; sf14g.async = true;
@@ -725,12 +725,12 @@ tarteaucitron.services.leadforensics = {
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(sf14g, s);
         })();
 
-        tarteaucitron.addScript('//secure.leadforensics.com/js/' + tarteaucitron.user.leadforensicsIidentifier + '.js');
+        GDPRtoolkit.addScript('//secure.leadforensics.com/js/' + GDPRtoolkit.user.leadforensicsIidentifier + '.js');
     }
 };
 
 // disqus
-tarteaucitron.services.disqus = {
+GDPRtoolkit.services.disqus = {
     "key": "disqus",
     "type": "comment",
     "name": "Disqus",
@@ -739,24 +739,24 @@ tarteaucitron.services.disqus = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.disqusShortname === undefined) {
+        if (GDPRtoolkit.user.disqusShortname === undefined) {
             return;
         }
-        tarteaucitron.addScript('//' + tarteaucitron.user.disqusShortname + '.disqus.com/embed.js');
-        tarteaucitron.addScript('//' + tarteaucitron.user.disqusShortname + '.disqus.com/count.js');
+        GDPRtoolkit.addScript('//' + GDPRtoolkit.user.disqusShortname + '.disqus.com/embed.js');
+        GDPRtoolkit.addScript('//' + GDPRtoolkit.user.disqusShortname + '.disqus.com/count.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'disqus';
 
         if (document.getElementById('disqus_thread')) {
-            document.getElementById('disqus_thread').innerHTML = tarteaucitron.engage(id);
+            document.getElementById('disqus_thread').innerHTML = GDPRtoolkit.engage(id);
         }
     }
 };
 
 // ekomi
-tarteaucitron.services.ekomi = {
+GDPRtoolkit.services.ekomi = {
     "key": "ekomi",
     "type": "social",
     "name": "eKomi",
@@ -765,18 +765,18 @@ tarteaucitron.services.ekomi = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.ekomiCertId === undefined) {
+        if (GDPRtoolkit.user.ekomiCertId === undefined) {
             return;
         }
         window.eKomiIntegrationConfig = [
-            {certId: tarteaucitron.user.ekomiCertId}
+            {certId: GDPRtoolkit.user.ekomiCertId}
         ];
-        tarteaucitron.addScript('//connect.ekomi.de/integration_1410173009/' + tarteaucitron.user.ekomiCertId + '.js');
+        GDPRtoolkit.addScript('//connect.ekomi.de/integration_1410173009/' + GDPRtoolkit.user.ekomiCertId + '.js');
     }
 };
 
 // etracker
-tarteaucitron.services.etracker = {
+GDPRtoolkit.services.etracker = {
     "key": "etracker",
     "type": "analytic",
     "name": "eTracker",
@@ -785,16 +785,16 @@ tarteaucitron.services.etracker = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.etracker === undefined) {
+        if (GDPRtoolkit.user.etracker === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//static.etracker.com/code/e.js', '_etLoader', function () {}, true, "data-secure-code", tarteaucitron.user.etracker);
+        GDPRtoolkit.addScript('//static.etracker.com/code/e.js', '_etLoader', function () {}, true, "data-secure-code", GDPRtoolkit.user.etracker);
     }
 };
 
 // facebook
-tarteaucitron.services.facebook = {
+GDPRtoolkit.services.facebook = {
     "key": "facebook",
     "type": "social",
     "name": "Facebook",
@@ -803,9 +803,9 @@ tarteaucitron.services.facebook = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['fb-post', 'fb-follow', 'fb-activity', 'fb-send', 'fb-share-button', 'fb-like', 'fb-video'], '');
-        tarteaucitron.addScript('//connect.facebook.net/' + tarteaucitron.getLocale() + '/sdk.js#xfbml=1&version=v2.0', 'facebook-jssdk');
-        if (tarteaucitron.isAjax === true) {
+        GDPRtoolkit.fallback(['fb-post', 'fb-follow', 'fb-activity', 'fb-send', 'fb-share-button', 'fb-like', 'fb-video'], '');
+        GDPRtoolkit.addScript('//connect.facebook.net/' + GDPRtoolkit.getLocale() + '/sdk.js#xfbml=1&version=v2.0', 'facebook-jssdk');
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof FB !== "undefined") {
                 FB.XFBML.parse();
             }
@@ -814,12 +814,12 @@ tarteaucitron.services.facebook = {
     "fallback": function () {
         "use strict";
         var id = 'facebook';
-        tarteaucitron.fallback(['fb-post', 'fb-follow', 'fb-activity', 'fb-send', 'fb-share-button', 'fb-like', 'fb-video'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['fb-post', 'fb-follow', 'fb-activity', 'fb-send', 'fb-share-button', 'fb-like', 'fb-video'], GDPRtoolkit.engage(id));
     }
 };
 
 // facebooklikebox
-tarteaucitron.services.facebooklikebox = {
+GDPRtoolkit.services.facebooklikebox = {
     "key": "facebooklikebox",
     "type": "social",
     "name": "Facebook (like box)",
@@ -828,9 +828,9 @@ tarteaucitron.services.facebooklikebox = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['fb-like-box', 'fb-page'], '');
-        tarteaucitron.addScript('//connect.facebook.net/' + tarteaucitron.getLocale() + '/sdk.js#xfbml=1&version=v2.3', 'facebook-jssdk');
-        if (tarteaucitron.isAjax === true) {
+        GDPRtoolkit.fallback(['fb-like-box', 'fb-page'], '');
+        GDPRtoolkit.addScript('//connect.facebook.net/' + GDPRtoolkit.getLocale() + '/sdk.js#xfbml=1&version=v2.3', 'facebook-jssdk');
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof FB !== "undefined") {
                 FB.XFBML.parse();
             }
@@ -839,12 +839,12 @@ tarteaucitron.services.facebooklikebox = {
     "fallback": function () {
         "use strict";
         var id = 'facebooklikebox';
-        tarteaucitron.fallback(['fb-like-box', 'fb-page'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['fb-like-box', 'fb-page'], GDPRtoolkit.engage(id));
     }
 };
 
 // facebookcomment
-tarteaucitron.services.facebookcomment = {
+GDPRtoolkit.services.facebookcomment = {
     "key": "facebookcomment",
     "type": "comment",
     "name": "Facebook (commentaire)",
@@ -853,9 +853,9 @@ tarteaucitron.services.facebookcomment = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['fb-comments'], '');
-        tarteaucitron.addScript('//connect.facebook.net/' + tarteaucitron.getLocale() + '/sdk.js#xfbml=1&version=v2.0', 'facebook-jssdk');
-        if (tarteaucitron.isAjax === true) {
+        GDPRtoolkit.fallback(['fb-comments'], '');
+        GDPRtoolkit.addScript('//connect.facebook.net/' + GDPRtoolkit.getLocale() + '/sdk.js#xfbml=1&version=v2.0', 'facebook-jssdk');
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof FB !== "undefined") {
                 FB.XFBML.parse();
             }
@@ -864,12 +864,12 @@ tarteaucitron.services.facebookcomment = {
     "fallback": function () {
         "use strict";
         var id = 'facebookcomment';
-        tarteaucitron.fallback(['fb-comments'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['fb-comments'], GDPRtoolkit.engage(id));
     }
 };
 
 // ferank
-tarteaucitron.services.ferank = {
+GDPRtoolkit.services.ferank = {
     "key": "ferank",
     "type": "analytic",
     "name": "FERank",
@@ -878,16 +878,16 @@ tarteaucitron.services.ferank = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('//static.ferank.fr/pixel.js', '', function () {
-            if (typeof tarteaucitron.user.ferankMore === 'function') {
-                tarteaucitron.user.ferankMore();
+        GDPRtoolkit.addScript('//static.ferank.fr/pixel.js', '', function () {
+            if (typeof GDPRtoolkit.user.ferankMore === 'function') {
+                GDPRtoolkit.user.ferankMore();
             }
         });
     }
 };
 
 // ferank pub
-tarteaucitron.services.ferankpub = {
+GDPRtoolkit.services.ferankpub = {
     "key": "ferankpub",
     "type": "ads",
     "name": "FERank (pub)",
@@ -896,8 +896,8 @@ tarteaucitron.services.ferankpub = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('//static.ferank.fr/publicite.async.js');
-        if (tarteaucitron.isAjax === true) {
+        GDPRtoolkit.addScript('//static.ferank.fr/publicite.async.js');
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof ferankReady === 'function') {
                 ferankReady();
             }
@@ -906,32 +906,32 @@ tarteaucitron.services.ferankpub = {
     "fallback": function () {
         "use strict";
         var id = 'ferankpub';
-        tarteaucitron.fallback(['ferank-publicite'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['ferank-publicite'], GDPRtoolkit.engage(id));
     }
 };
 
 // get+
-tarteaucitron.services.getplus = {
+GDPRtoolkit.services.getplus = {
     "key": "getplus",
     "type": "analytic",
     "name": "Get+",
     "uri": "http://www.getplus.fr/Conditions-generales-de-vente_a226.html",
     "needConsent": true,
-    "cookies": ['_first_pageview', '_jsuid', 'no_trackyy_' + tarteaucitron.user.getplusId, '_eventqueue'],
+    "cookies": ['_first_pageview', '_jsuid', 'no_trackyy_' + GDPRtoolkit.user.getplusId, '_eventqueue'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.getplusId === undefined) {
+        if (GDPRtoolkit.user.getplusId === undefined) {
             return;
         }
 
         window.webleads_site_ids = window.webleads_site_ids || [];
-        window.webleads_site_ids.push(tarteaucitron.user.getplusId);
-        tarteaucitron.addScript('//stats.webleads-tracker.com/js');
+        window.webleads_site_ids.push(GDPRtoolkit.user.getplusId);
+        GDPRtoolkit.addScript('//stats.webleads-tracker.com/js');
     }
 };
 
 // google+
-tarteaucitron.services.gplus = {
+GDPRtoolkit.services.gplus = {
     "key": "gplus",
     "type": "social",
     "name": "Google+",
@@ -940,17 +940,17 @@ tarteaucitron.services.gplus = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('https://apis.google.com/js/platform.js');
+        GDPRtoolkit.addScript('https://apis.google.com/js/platform.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'gplus';
-        tarteaucitron.fallback(['g-plus', 'g-plusone'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['g-plus', 'g-plusone'], GDPRtoolkit.engage(id));
     }
 };
 
 // google+ badge
-tarteaucitron.services.gplusbadge = {
+GDPRtoolkit.services.gplusbadge = {
     "key": "gplusbadge",
     "type": "social",
     "name": "Google+ (badge)",
@@ -959,17 +959,17 @@ tarteaucitron.services.gplusbadge = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('https://apis.google.com/js/platform.js');
+        GDPRtoolkit.addScript('https://apis.google.com/js/platform.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'gplusbadge';
-        tarteaucitron.fallback(['g-page', 'g-person'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['g-page', 'g-person'], GDPRtoolkit.engage(id));
     }
 };
 
 // google adsense
-tarteaucitron.services.adsense = {
+GDPRtoolkit.services.adsense = {
     "key": "adsense",
     "type": "ads",
     "name": "Google Adsense",
@@ -978,17 +978,17 @@ tarteaucitron.services.adsense = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
+        GDPRtoolkit.addScript('https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'adsense';
-        tarteaucitron.fallback(['adsbygoogle'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['adsbygoogle'], GDPRtoolkit.engage(id));
     }
 };
 
 // google partners badge
-tarteaucitron.services.googlepartners = {
+GDPRtoolkit.services.googlepartners = {
     "key": "googlepartners",
     "type": "ads",
     "name": "Google Partners Badge",
@@ -997,17 +997,17 @@ tarteaucitron.services.googlepartners = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('https://apis.google.com/js/platform.js');
+        GDPRtoolkit.addScript('https://apis.google.com/js/platform.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'googlepartners';
-        tarteaucitron.fallback(['g-partnersbadge'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['g-partnersbadge'], GDPRtoolkit.engage(id));
     }
 };
 
 // google adsense search (form)
-tarteaucitron.services.adsensesearchform = {
+GDPRtoolkit.services.adsensesearchform = {
     "key": "adsensesearchform",
     "type": "ads",
     "name": "Google Adsense Search (form)",
@@ -1016,12 +1016,12 @@ tarteaucitron.services.adsensesearchform = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('//www.google.com/coop/cse/brand?form=cse-search-box&lang=' + tarteaucitron.getLanguage());
+        GDPRtoolkit.addScript('//www.google.com/coop/cse/brand?form=cse-search-box&lang=' + GDPRtoolkit.getLanguage());
     }
 };
 
 // google adsense search (result)
-tarteaucitron.services.adsensesearchresult = {
+GDPRtoolkit.services.adsensesearchresult = {
     "key": "adsensesearchresult",
     "type": "ads",
     "name": "Google Adsense Search (result)",
@@ -1030,23 +1030,23 @@ tarteaucitron.services.adsensesearchresult = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.adsensesearchresultCx === undefined) {
+        if (GDPRtoolkit.user.adsensesearchresultCx === undefined) {
             return;
         }
-        tarteaucitron.addScript('//www.google.com/cse/cse.js?cx=' + tarteaucitron.user.adsensesearchresultCx);
+        GDPRtoolkit.addScript('//www.google.com/cse/cse.js?cx=' + GDPRtoolkit.user.adsensesearchresultCx);
     },
     "fallback": function () {
         "use strict";
         var id = 'adsensesearchresult';
 
         if (document.getElementById('gcse_searchresults')) {
-            document.getElementById('gcse_searchresults').innerHTML = tarteaucitron.engage(id);
+            document.getElementById('gcse_searchresults').innerHTML = GDPRtoolkit.engage(id);
         }
     }
 };
 
 // googleadwordsconversion
-tarteaucitron.services.googleadwordsconversion = {
+GDPRtoolkit.services.googleadwordsconversion = {
     "key": "googleadwordsconversion",
     "type": "ads",
     "name": "Google Adwords (conversion)",
@@ -1055,22 +1055,22 @@ tarteaucitron.services.googleadwordsconversion = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.adwordsconversionId === undefined) {
+        if (GDPRtoolkit.user.adwordsconversionId === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//www.googleadservices.com/pagead/conversion_async.js', '', function () {
+        GDPRtoolkit.addScript('//www.googleadservices.com/pagead/conversion_async.js', '', function () {
             window.google_trackConversion({
-                google_conversion_id: tarteaucitron.user.adwordsconversionId,
-                google_conversion_label: tarteaucitron.user.adwordsconversionLabel,
-                google_conversion_language: tarteaucitron.user.adwordsconversionLanguage,
-                google_conversion_format: tarteaucitron.user.adwordsconversionFormat,
-                google_conversion_color: tarteaucitron.user.adwordsconversionColor,
-                google_conversion_value: tarteaucitron.user.adwordsconversionValue,
-                google_conversion_currency: tarteaucitron.user.adwordsconversionCurrency,
+                google_conversion_id: GDPRtoolkit.user.adwordsconversionId,
+                google_conversion_label: GDPRtoolkit.user.adwordsconversionLabel,
+                google_conversion_language: GDPRtoolkit.user.adwordsconversionLanguage,
+                google_conversion_format: GDPRtoolkit.user.adwordsconversionFormat,
+                google_conversion_color: GDPRtoolkit.user.adwordsconversionColor,
+                google_conversion_value: GDPRtoolkit.user.adwordsconversionValue,
+                google_conversion_currency: GDPRtoolkit.user.adwordsconversionCurrency,
                 google_custom_params: {
-                    parameter1: tarteaucitron.user.adwordsconversionCustom1,
-                    parameter2: tarteaucitron.user.adwordsconversionCustom2
+                    parameter1: GDPRtoolkit.user.adwordsconversionCustom1,
+                    parameter2: GDPRtoolkit.user.adwordsconversionCustom2
                 }
             });
         });
@@ -1078,7 +1078,7 @@ tarteaucitron.services.googleadwordsconversion = {
 };
 
 // googleadwordsremarketing
-tarteaucitron.services.googleadwordsremarketing = {
+GDPRtoolkit.services.googleadwordsremarketing = {
     "key": "googleadwordsremarketing",
     "type": "ads",
     "name": "Google Adwords (remarketing)",
@@ -1087,13 +1087,13 @@ tarteaucitron.services.googleadwordsremarketing = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.adwordsremarketingId === undefined) {
+        if (GDPRtoolkit.user.adwordsremarketingId === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//www.googleadservices.com/pagead/conversion_async.js', '', function () {
+        GDPRtoolkit.addScript('//www.googleadservices.com/pagead/conversion_async.js', '', function () {
             window.google_trackConversion({
-                google_conversion_id: tarteaucitron.user.adwordsremarketingId,
+                google_conversion_id: GDPRtoolkit.user.adwordsremarketingId,
                 google_remarketing_only: true
             });
         });
@@ -1101,7 +1101,7 @@ tarteaucitron.services.googleadwordsremarketing = {
 };
 
 // google analytics (old)
-tarteaucitron.services.gajs = {
+GDPRtoolkit.services.gajs = {
     "key": "gajs",
     "type": "analytic",
     "name": "Google Analytics (ga.js)",
@@ -1111,28 +1111,28 @@ tarteaucitron.services.gajs = {
     "js": function () {
         "use strict";
         window._gaq = window._gaq || [];
-        window._gaq.push(['_setAccount', tarteaucitron.user.gajsUa]);
+        window._gaq.push(['_setAccount', GDPRtoolkit.user.gajsUa]);
 
-        if (tarteaucitron.user.gajsAnonymizeIp) {
+        if (GDPRtoolkit.user.gajsAnonymizeIp) {
             window._gaq.push (['_gat._anonymizeIp']);
         }
 
-        if (tarteaucitron.user.gajsPageView) {
-            window._gaq.push(['_trackPageview, ' + tarteaucitron.user.gajsPageView]);
+        if (GDPRtoolkit.user.gajsPageView) {
+            window._gaq.push(['_trackPageview, ' + GDPRtoolkit.user.gajsPageView]);
         } else {
             window._gaq.push(['_trackPageview']);
         }
 
-        tarteaucitron.addScript('//www.google-analytics.com/ga.js', '', function () {
-            if (typeof tarteaucitron.user.gajsMore === 'function') {
-                tarteaucitron.user.gajsMore();
+        GDPRtoolkit.addScript('//www.google-analytics.com/ga.js', '', function () {
+            if (typeof GDPRtoolkit.user.gajsMore === 'function') {
+                GDPRtoolkit.user.gajsMore();
             }
         });
     }
 };
 
 // google analytics
-tarteaucitron.services.analytics = {
+GDPRtoolkit.services.analytics = {
     "key": "analytics",
     "type": "analytic",
     "name": "Google Analytics (universal)",
@@ -1147,34 +1147,34 @@ tarteaucitron.services.analytics = {
             window.ga.q.push(arguments);
         };
         window.ga.l = new Date();
-        tarteaucitron.addScript('https://www.google-analytics.com/analytics.js', '', function () {
+        GDPRtoolkit.addScript('https://www.google-analytics.com/analytics.js', '', function () {
             var uaCreate = {'cookieExpires': 34128000};
-            tarteaucitron.extend(uaCreate, tarteaucitron.user.analyticsUaCreate || {});
-            ga('create', tarteaucitron.user.analyticsUa, uaCreate);
+            GDPRtoolkit.extend(uaCreate, GDPRtoolkit.user.analyticsUaCreate || {});
+            ga('create', GDPRtoolkit.user.analyticsUa, uaCreate);
 
-            if (tarteaucitron.user.analyticsAnonymizeIp) {
+            if (GDPRtoolkit.user.analyticsAnonymizeIp) {
                 ga('set', 'anonymizeIp', true);
             }
 
-            if (typeof tarteaucitron.user.analyticsPrepare === 'function') {
-                tarteaucitron.user.analyticsPrepare();
+            if (typeof GDPRtoolkit.user.analyticsPrepare === 'function') {
+                GDPRtoolkit.user.analyticsPrepare();
             }
 
-            if (tarteaucitron.user.analyticsPageView) {
-                ga('send', 'pageview', tarteaucitron.user.analyticsPageView);
+            if (GDPRtoolkit.user.analyticsPageView) {
+                ga('send', 'pageview', GDPRtoolkit.user.analyticsPageView);
             } else {
                 ga('send', 'pageview');
             }
 
-            if (typeof tarteaucitron.user.analyticsMore === 'function') {
-                tarteaucitron.user.analyticsMore();
+            if (typeof GDPRtoolkit.user.analyticsMore === 'function') {
+                GDPRtoolkit.user.analyticsMore();
             }
         });
     }
 };
 
 // google analytics
-tarteaucitron.services.gtag = {
+GDPRtoolkit.services.gtag = {
     "key": "gtag",
     "type": "analytic",
     "name": "Google Analytics (gtag.js)",
@@ -1182,27 +1182,27 @@ tarteaucitron.services.gtag = {
     "needConsent": true,
     "cookies": (function () {
         // Add _gat_gtag_UA_XXXXXXX_XX cookie to cookies array
-        var gatGtagUaCookie = '_gat_gtag_' + tarteaucitron.user.gtagUa;
+        var gatGtagUaCookie = '_gat_gtag_' + GDPRtoolkit.user.gtagUa;
         gatGtagUaCookie = gatGtagUaCookie.replace(/-/g, '_');
         return ['_ga', '_gat', '_gid', '__utma', '__utmb', '__utmc', '__utmt', '__utmz', gatGtagUaCookie];
     })(),
     "js": function () {
         "use strict";
         window.dataLayer = window.dataLayer || [];
-        tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + tarteaucitron.user.gtagUa, '', function () {
+        GDPRtoolkit.addScript('https://www.googletagmanager.com/gtag/js?id=' + GDPRtoolkit.user.gtagUa, '', function () {
             window.gtag = function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
-            gtag('config', tarteaucitron.user.gtagUa);
+            gtag('config', GDPRtoolkit.user.gtagUa);
 
-            if (typeof tarteaucitron.user.gtagMore === 'function') {
-                tarteaucitron.user.gtagMore();
+            if (typeof GDPRtoolkit.user.gtagMore === 'function') {
+                GDPRtoolkit.user.gtagMore();
             }
         });
     }
 };
 
 // google maps
-tarteaucitron.services.googlemaps = {
+GDPRtoolkit.services.googlemaps = {
     "key": "googlemaps",
     "type": "api",
     "name": "Google Maps",
@@ -1216,20 +1216,20 @@ tarteaucitron.services.googlemaps = {
             uniqIds = [],
             i;
 
-        if (tarteaucitron.user.mapscallback === undefined) {
-            tarteaucitron.user.mapscallback = 'tac_googlemaps_callback';
+        if (GDPRtoolkit.user.mapscallback === undefined) {
+            GDPRtoolkit.user.mapscallback = 'tac_googlemaps_callback';
         }
 
         // Add Google Maps libraries if any (https://developers.google.com/maps/documentation/javascript/libraries)
         var googleMapsLibraries = '';
-        if (tarteaucitron.user.googlemapsLibraries) {
-            googleMapsLibraries = '&libraries=' + tarteaucitron.user.googlemapsLibraries;
+        if (GDPRtoolkit.user.googlemapsLibraries) {
+            googleMapsLibraries = '&libraries=' + GDPRtoolkit.user.googlemapsLibraries;
         }
 
-        tarteaucitron.addScript('//maps.googleapis.com/maps/api/js?v=3.exp&key=' + tarteaucitron.user.googlemapsKey + '&callback='+tarteaucitron.user.mapscallback + googleMapsLibraries);
+        GDPRtoolkit.addScript('//maps.googleapis.com/maps/api/js?v=3.exp&key=' + GDPRtoolkit.user.googlemapsKey + '&callback='+GDPRtoolkit.user.mapscallback + googleMapsLibraries);
 
         window.tac_googlemaps_callback = function () {
-            tarteaucitron.fallback(['googlemaps-canvas'], function (x) {
+            GDPRtoolkit.fallback(['googlemaps-canvas'], function (x) {
                 var uniqId = '_' + Math.random().toString(36).substr(2, 9);
                 uniqIds.push(uniqId);
                 return '<div id="' + uniqId + '" zoom="' + x.getAttribute('zoom') + '" latitude="' + x.getAttribute('latitude') + '" longitude="' + x.getAttribute('longitude') + '" style="width:' + x.offsetWidth + 'px;height:' + x.offsetHeight + 'px"></div>';
@@ -1247,12 +1247,12 @@ tarteaucitron.services.googlemaps = {
     "fallback": function () {
         "use strict";
         var id = 'googlemaps';
-        tarteaucitron.fallback(['googlemaps-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['googlemaps-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // googlemaps search
-tarteaucitron.services.googlemapssearch = {
+GDPRtoolkit.services.googlemapssearch = {
     "key": "googlemapssearch",
     "type": "api",
     "name": "Google Maps Search API",
@@ -1261,7 +1261,7 @@ tarteaucitron.services.googlemapssearch = {
     "cookies": ['nid'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['googlemapssearch'], function (x) {
+        GDPRtoolkit.fallback(['googlemapssearch'], function (x) {
             var width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
                 // url = x.getAttribute("data-url");
@@ -1275,16 +1275,16 @@ tarteaucitron.services.googlemapssearch = {
     "fallback": function () {
         "use strict";
         var id = 'googlemapssearch';
-        tarteaucitron.fallback(['googlemapssearch'], function (elem) {
+        GDPRtoolkit.fallback(['googlemapssearch'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // googlemaps embed iframe
-tarteaucitron.services.googlemapsembed = {
+GDPRtoolkit.services.googlemapsembed = {
     "key": "googlemapsembed",
     "type": "api",
     "name": "Google Maps Embed",
@@ -1293,9 +1293,9 @@ tarteaucitron.services.googlemapsembed = {
     "cookies": ['apisid', 'hsid', 'nid', 'sapisid', 'sid', 'sidcc', 'ssid', '1p_jar'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['googlemapsembed'], function (x) {
-            var width = tarteaucitron.getElemWidth(x),
-                height = tarteaucitron.getElemHeight(x),
+        GDPRtoolkit.fallback(['googlemapsembed'], function (x) {
+            var width = GDPRtoolkit.getElemWidth(x),
+                height = GDPRtoolkit.getElemHeight(x),
                 url = x.getAttribute("data-url");
 
             return '<iframe src="' + url + '" width="' + width + '" height="' + height + '" frameborder="0" scrolling="no" allowtransparency allowfullscreen></iframe>';
@@ -1304,16 +1304,16 @@ tarteaucitron.services.googlemapsembed = {
     "fallback": function () {
         "use strict";
         var id = 'googlemapsembed';
-        tarteaucitron.fallback(['googlemapsembed'], function (elem) {
-            elem.style.width = tarteaucitron.getElemWidth(elem) + 'px';
-            elem.style.height = tarteaucitron.getElemHeight(elem) + 'px';
-            return tarteaucitron.engage(id);
+        GDPRtoolkit.fallback(['googlemapsembed'], function (elem) {
+            elem.style.width = GDPRtoolkit.getElemWidth(elem) + 'px';
+            elem.style.height = GDPRtoolkit.getElemHeight(elem) + 'px';
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // google tag manager
-tarteaucitron.services.googletagmanager = {
+GDPRtoolkit.services.googletagmanager = {
     "key": "googletagmanager",
     "type": "api",
     "name": "Google Tag Manager",
@@ -1322,7 +1322,7 @@ tarteaucitron.services.googletagmanager = {
     "cookies": ['_ga', '_gat', '__utma', '__utmb', '__utmc', '__utmt', '__utmz', '__gads', '_drt_', 'FLC', 'exchange_uid', 'id', 'fc', 'rrs', 'rds', 'rv', 'uid', 'UIDR', 'UID', 'clid', 'ipinfo', 'acs'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.googletagmanagerId === undefined) {
+        if (GDPRtoolkit.user.googletagmanagerId === undefined) {
             return;
         }
         window.dataLayer = window.dataLayer || [];
@@ -1330,12 +1330,12 @@ tarteaucitron.services.googletagmanager = {
             'gtm.start': new Date().getTime(),
             event: 'gtm.js'
         });
-        tarteaucitron.addScript('//www.googletagmanager.com/gtm.js?id=' + tarteaucitron.user.googletagmanagerId);
+        GDPRtoolkit.addScript('//www.googletagmanager.com/gtm.js?id=' + GDPRtoolkit.user.googletagmanagerId);
     }
 };
 
 // google webfonts
-tarteaucitron.services.googlefonts = {
+GDPRtoolkit.services.googlefonts = {
   "key": "googlefonts",
   "type": "api",
   "name": "Google Webfonts",
@@ -1344,13 +1344,13 @@ tarteaucitron.services.googlefonts = {
   "cookies": [],
   "js": function () {
     "use strict";
-    if (tarteaucitron.user.googleFonts === undefined) {
+    if (GDPRtoolkit.user.googleFonts === undefined) {
       return;
     }
-    tarteaucitron.addScript('//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', '', function () {
+    GDPRtoolkit.addScript('//ajax.googleapis.com/ajax/libs/webfont/1.6.26/webfont.js', '', function () {
       WebFont.load({
         google: {
-          families: tarteaucitron.user.googleFonts
+          families: GDPRtoolkit.user.googleFonts
         }
       });
     });
@@ -1358,7 +1358,7 @@ tarteaucitron.services.googlefonts = {
 };
 
 // hubspot
-tarteaucitron.services.hubspot = {
+GDPRtoolkit.services.hubspot = {
     "key": "hubspot",
     "type": "analytic",
     "name": "Hubspot",
@@ -1367,12 +1367,12 @@ tarteaucitron.services.hubspot = {
     "cookies": ['hubspotutk', 'fr', '__hstc', '__hssrc', '__hssc', '__cfduid'],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('//js.hs-scripts.com/' + tarteaucitron.user.hubspotId + '.js', 'hs-script-loader');
+        GDPRtoolkit.addScript('//js.hs-scripts.com/' + GDPRtoolkit.user.hubspotId + '.js', 'hs-script-loader');
     }
 };
 
 // jsapi
-tarteaucitron.services.jsapi = {
+GDPRtoolkit.services.jsapi = {
     "key": "jsapi",
     "type": "api",
     "name": "Google jsapi",
@@ -1381,12 +1381,12 @@ tarteaucitron.services.jsapi = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('//www.google.com/jsapi');
+        GDPRtoolkit.addScript('//www.google.com/jsapi');
     }
 };
 
 // twitterwidgetsapi
-tarteaucitron.services.twitterwidgetsapi = {
+GDPRtoolkit.services.twitterwidgetsapi = {
     "key": "twitterwidgetsapi",
     "type": "api",
     "name": "Twitter Widgets API",
@@ -1395,18 +1395,18 @@ tarteaucitron.services.twitterwidgetsapi = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tacTwitterAPI'], '');
-        tarteaucitron.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
+        GDPRtoolkit.fallback(['tacTwitterAPI'], '');
+        GDPRtoolkit.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
     },
     "fallback": function () {
         "use strict";
         var id = 'twitterwidgetsapi';
-        tarteaucitron.fallback(['tacTwitterAPI'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacTwitterAPI'], GDPRtoolkit.engage(id));
     }
 };
 
 // recaptcha
-tarteaucitron.services.recaptcha = {
+GDPRtoolkit.services.recaptcha = {
     "key": "recaptcha",
     "type": "api",
     "name": "reCAPTCHA",
@@ -1415,19 +1415,19 @@ tarteaucitron.services.recaptcha = {
     "cookies": ['nid'],
     "js": function () {
         "use strict";
-        window.tacRecaptchaOnLoad = tarteaucitron.user.recaptchaOnLoad || function() {};
-        tarteaucitron.fallback(['g-recaptcha'], '');
-        tarteaucitron.addScript('https://www.google.com/recaptcha/api.js?onload=tacRecaptchaOnLoad');
+        window.tacRecaptchaOnLoad = GDPRtoolkit.user.recaptchaOnLoad || function() {};
+        GDPRtoolkit.fallback(['g-recaptcha'], '');
+        GDPRtoolkit.addScript('https://www.google.com/recaptcha/api.js?onload=tacRecaptchaOnLoad');
     },
     "fallback": function () {
         "use strict";
         var id = 'recaptcha';
-        tarteaucitron.fallback(['g-recaptcha'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['g-recaptcha'], GDPRtoolkit.engage(id));
     }
 };
 
 // linkedin
-tarteaucitron.services.linkedin = {
+GDPRtoolkit.services.linkedin = {
     "key": "linkedin",
     "type": "social",
     "name": "Linkedin",
@@ -1436,9 +1436,9 @@ tarteaucitron.services.linkedin = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tacLinkedin'], '');
-        tarteaucitron.addScript('//platform.linkedin.com/in.js');
-        if (tarteaucitron.isAjax === true) {
+        GDPRtoolkit.fallback(['tacLinkedin'], '');
+        GDPRtoolkit.addScript('//platform.linkedin.com/in.js');
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof IN !== "undefined") {
                 IN.parse();
             }
@@ -1447,12 +1447,12 @@ tarteaucitron.services.linkedin = {
     "fallback": function () {
         "use strict";
         var id = 'linkedin';
-        tarteaucitron.fallback(['tacLinkedin'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacLinkedin'], GDPRtoolkit.engage(id));
     }
 };
 
 // mautic
-tarteaucitron.services.mautic = {
+GDPRtoolkit.services.mautic = {
     "key": "mautic",
     "type": "analytic",
     "name": "Mautic",
@@ -1461,7 +1461,7 @@ tarteaucitron.services.mautic = {
     "cookies": ['mtc_id', 'mtc_sid'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.mauticurl === undefined) {
+        if (GDPRtoolkit.user.mauticurl === undefined) {
             return;
         }
 
@@ -1471,14 +1471,14 @@ tarteaucitron.services.mautic = {
             window.mt.q.push(arguments);
         };
 
-        tarteaucitron.addScript(tarteaucitron.user.mauticurl, '', function() {
+        GDPRtoolkit.addScript(GDPRtoolkit.user.mauticurl, '', function() {
             mt('send', 'pageview');
         });
     }
 };
 
 // microsoftcampaignanalytics
-tarteaucitron.services.microsoftcampaignanalytics = {
+GDPRtoolkit.services.microsoftcampaignanalytics = {
     "key": "microsoftcampaignanalytics",
     "type": "analytic",
     "name": "Microsoft Campaign Analytics",
@@ -1487,19 +1487,19 @@ tarteaucitron.services.microsoftcampaignanalytics = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.microsoftcampaignanalyticsUUID === undefined) {
+        if (GDPRtoolkit.user.microsoftcampaignanalyticsUUID === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//flex.atdmt.com/mstag/site/' + tarteaucitron.user.microsoftcampaignanalyticsUUID + '/mstag.js', 'mstag_tops', function () {
+        GDPRtoolkit.addScript('//flex.atdmt.com/mstag/site/' + GDPRtoolkit.user.microsoftcampaignanalyticsUUID + '/mstag.js', 'mstag_tops', function () {
             window.mstag = {loadTag : function () {}, time : (new Date()).getTime()};
-            window.mstag.loadTag("analytics", {dedup: "1", domainId: tarteaucitron.user.microsoftcampaignanalyticsdomainId, type: "1", actionid: tarteaucitron.user.microsoftcampaignanalyticsactionId});
+            window.mstag.loadTag("analytics", {dedup: "1", domainId: GDPRtoolkit.user.microsoftcampaignanalyticsdomainId, type: "1", actionid: GDPRtoolkit.user.microsoftcampaignanalyticsactionId});
         });
     }
 };
 
 // pinterest
-tarteaucitron.services.pinterest = {
+GDPRtoolkit.services.pinterest = {
     "key": "pinterest",
     "type": "social",
     "name": "Pinterest",
@@ -1508,18 +1508,18 @@ tarteaucitron.services.pinterest = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tacPinterest'], '');
-        tarteaucitron.addScript('//assets.pinterest.com/js/pinit.js');
+        GDPRtoolkit.fallback(['tacPinterest'], '');
+        GDPRtoolkit.addScript('//assets.pinterest.com/js/pinit.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'pinterest';
-        tarteaucitron.fallback(['tacPinterest'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacPinterest'], GDPRtoolkit.engage(id));
     }
 };
 
 // prelinker
-tarteaucitron.services.prelinker = {
+GDPRtoolkit.services.prelinker = {
     "key": "prelinker",
     "type": "ads",
     "name": "Prelinker",
@@ -1532,7 +1532,7 @@ tarteaucitron.services.prelinker = {
             i,
             uri;
 
-        tarteaucitron.fallback(['prelinker-canvas'], function (x) {
+        GDPRtoolkit.fallback(['prelinker-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" siteId="' + x.getAttribute('siteId') + '" bannerId="' + x.getAttribute('bannerId') + '" defaultLanguage="' + x.getAttribute('defaultLanguage') + '" tracker="' + x.getAttribute('tracker') + '"></div>';
@@ -1545,18 +1545,18 @@ tarteaucitron.services.prelinker = {
             uri += 'default_language=' + document.getElementById(uniqIds[i]).getAttribute('defaultLanguage') + '&';
             uri += 'tr4ck=' + document.getElementById(uniqIds[i]).getAttribute('trackrt');
 
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'prelinker';
-        tarteaucitron.fallback(['prelinker-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['prelinker-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // prezi
-tarteaucitron.services.prezi = {
+GDPRtoolkit.services.prezi = {
     "key": "prezi",
     "type": "video",
     "name": "Prezi",
@@ -1565,7 +1565,7 @@ tarteaucitron.services.prezi = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['prezi-canvas'], function (x) {
+        GDPRtoolkit.fallback(['prezi-canvas'], function (x) {
             var id = x.getAttribute("data-id"),
                 width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
@@ -1577,16 +1577,16 @@ tarteaucitron.services.prezi = {
     "fallback": function () {
         "use strict";
         var id = 'prezi';
-        tarteaucitron.fallback(['prezi-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['prezi-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // pubdirecte
-tarteaucitron.services.pubdirecte = {
+GDPRtoolkit.services.pubdirecte = {
     "key": "pubdirecte",
     "type": "ads",
     "name": "Pubdirecte",
@@ -1599,7 +1599,7 @@ tarteaucitron.services.pubdirecte = {
             i,
             uri;
 
-        tarteaucitron.fallback(['pubdirecte-canvas'], function (x) {
+        GDPRtoolkit.fallback(['pubdirecte-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" pid="' + x.getAttribute('pid') + '" ref="' + x.getAttribute('ref') + '"></div>';
@@ -1610,18 +1610,18 @@ tarteaucitron.services.pubdirecte = {
             uri += 'id=' + document.getElementById(uniqIds[i]).getAttribute('pid') + '&';
             uri += 'ref=' + document.getElementById(uniqIds[i]).getAttribute('ref');
 
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'pubdirecte';
-        tarteaucitron.fallback(['pubdirecte-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['pubdirecte-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // purechat
-tarteaucitron.services.purechat = {
+GDPRtoolkit.services.purechat = {
     "key": "purechat",
     "type": "support",
     "name": "PureChat",
@@ -1630,20 +1630,20 @@ tarteaucitron.services.purechat = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.purechatId === undefined) {
+        if (GDPRtoolkit.user.purechatId === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//app.purechat.com/VisitorWidget/WidgetScript', '', function () {
+        GDPRtoolkit.addScript('//app.purechat.com/VisitorWidget/WidgetScript', '', function () {
             try {
-                window.w = new PCWidget({ c: tarteaucitron.user.purechatId, f: true });
+                window.w = new PCWidget({ c: GDPRtoolkit.user.purechatId, f: true });
             } catch (e) {}
         });
     }
 };
 
 // shareaholic
-tarteaucitron.services.shareaholic = {
+GDPRtoolkit.services.shareaholic = {
     "key": "shareaholic",
     "type": "social",
     "name": "Shareaholic",
@@ -1652,26 +1652,26 @@ tarteaucitron.services.shareaholic = {
     "cookies": ['__utma', '__utmb', '__utmc', '__utmz', '__utmt_Shareaholic%20Pageviews'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.shareaholicSiteId === undefined) {
+        if (GDPRtoolkit.user.shareaholicSiteId === undefined) {
             return;
         }
 
-        tarteaucitron.fallback(['shareaholic-canvas'], '');
-        tarteaucitron.addScript('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', '', function () {
+        GDPRtoolkit.fallback(['shareaholic-canvas'], '');
+        GDPRtoolkit.addScript('//dsms0mj1bbhn4.cloudfront.net/assets/pub/shareaholic.js', '', function () {
             try {
-                Shareaholic.init(tarteaucitron.user.shareaholicSiteId);
+                Shareaholic.init(GDPRtoolkit.user.shareaholicSiteId);
             } catch (e) {}
         });
     },
     "fallback": function () {
         "use strict";
         var id = 'shareaholic';
-        tarteaucitron.fallback(['shareaholic-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['shareaholic-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // shareasale
-tarteaucitron.services.shareasale = {
+GDPRtoolkit.services.shareasale = {
     "key": "shareasale",
     "type": "ads",
     "name": "ShareASale",
@@ -1684,7 +1684,7 @@ tarteaucitron.services.shareasale = {
             i,
             uri;
 
-        tarteaucitron.fallback(['shareasale-canvas'], function (x) {
+        GDPRtoolkit.fallback(['shareasale-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '" amount="' + x.getAttribute('amount') + '" tracking="' + x.getAttribute('tracking') + '" transtype="' + x.getAttribute('transtype') + '" persale="' + x.getAttribute('persale') + '" perlead="' + x.getAttribute('perlead') + '" perhit="' + x.getAttribute('perhit') + '" merchantID="' + x.getAttribute('merchantID') + '"></div>';
@@ -1706,12 +1706,12 @@ tarteaucitron.services.shareasale = {
     "fallback": function () {
         "use strict";
         var id = 'shareasale';
-        tarteaucitron.fallback(['shareasale-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['shareasale-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // sharethis
-tarteaucitron.services.sharethis = {
+GDPRtoolkit.services.sharethis = {
     "key": "sharethis",
     "type": "social",
     "name": "ShareThis",
@@ -1720,18 +1720,18 @@ tarteaucitron.services.sharethis = {
     "cookies": ['__unam'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.sharethisPublisher === undefined) {
+        if (GDPRtoolkit.user.sharethisPublisher === undefined) {
             return;
         }
         var switchTo5x = true,
             uri = ('https:' === document.location.protocol ? 'https://ws' : 'http://w') + '.sharethis.com/button/buttons.js';
 
-        tarteaucitron.fallback(['tacSharethis'], '');
-        tarteaucitron.addScript(uri, '', function () {
-            stLight.options({publisher: tarteaucitron.user.sharethisPublisher, doNotHash: false, doNotCopy: false, hashAddressBar: false});
+        GDPRtoolkit.fallback(['tacSharethis'], '');
+        GDPRtoolkit.addScript(uri, '', function () {
+            stLight.options({publisher: GDPRtoolkit.user.sharethisPublisher, doNotHash: false, doNotCopy: false, hashAddressBar: false});
         });
 
-        if (tarteaucitron.isAjax === true) {
+        if (GDPRtoolkit.isAjax === true) {
             if (typeof stButtons !== "undefined") {
                 stButtons.locateElements();
             }
@@ -1740,12 +1740,12 @@ tarteaucitron.services.sharethis = {
     "fallback": function () {
         "use strict";
         var id = 'sharethis';
-        tarteaucitron.fallback(['tacSharethis'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacSharethis'], GDPRtoolkit.engage(id));
     }
 };
 
 // slideshare
-tarteaucitron.services.slideshare = {
+GDPRtoolkit.services.slideshare = {
     "key": "slideshare",
     "type": "video",
     "name": "SlideShare",
@@ -1754,7 +1754,7 @@ tarteaucitron.services.slideshare = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['slideshare-canvas'], function (x) {
+        GDPRtoolkit.fallback(['slideshare-canvas'], function (x) {
             var id = x.getAttribute("data-id"),
                 width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
@@ -1766,16 +1766,16 @@ tarteaucitron.services.slideshare = {
     "fallback": function () {
         "use strict";
         var id = 'slideshare';
-        tarteaucitron.fallback(['slideshare-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['slideshare-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // statcounter
-tarteaucitron.services.statcounter = {
+GDPRtoolkit.services.statcounter = {
     "key": "statcounter",
     "type": "analytic",
     "name": "StatCounter",
@@ -1788,25 +1788,25 @@ tarteaucitron.services.statcounter = {
             i,
             uri = '//statcounter.com/counter/counter.js';
 
-        tarteaucitron.fallback(['statcounter-canvas'], function (x) {
+        GDPRtoolkit.fallback(['statcounter-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             return '<div id="' + uniqId + '"></div>';
         });
 
         for (i = 0; i < uniqIds.length; i += 1) {
-            tarteaucitron.makeAsync.init(uri, uniqIds[i]);
+            GDPRtoolkit.makeAsync.init(uri, uniqIds[i]);
         }
     },
     "fallback": function () {
         "use strict";
         var id = 'statcounter';
-        tarteaucitron.fallback(['statcounter-canvas'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['statcounter-canvas'], GDPRtoolkit.engage(id));
     }
 };
 
 // timelinejs
-tarteaucitron.services.timelinejs = {
+GDPRtoolkit.services.timelinejs = {
     "key": "timelinejs",
     "type": "api",
     "name": "Timeline JS",
@@ -1815,7 +1815,7 @@ tarteaucitron.services.timelinejs = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['timelinejs-canvas'], function (x) {
+        GDPRtoolkit.fallback(['timelinejs-canvas'], function (x) {
             var spreadsheet_id = x.getAttribute("spreadsheet_id"),
                 width = x.getAttribute("width"),
                 height = x.getAttribute("height"),
@@ -1834,16 +1834,16 @@ tarteaucitron.services.timelinejs = {
     "fallback": function () {
         "use strict";
         var id = 'timelinejs';
-        tarteaucitron.fallback(['timelinejs-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['timelinejs-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // tagcommander
-tarteaucitron.services.tagcommander = {
+GDPRtoolkit.services.tagcommander = {
     "key": "tagcommander",
     "type": "api",
     "name": "TagCommander",
@@ -1852,15 +1852,15 @@ tarteaucitron.services.tagcommander = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.tagcommanderid === undefined) {
+        if (GDPRtoolkit.user.tagcommanderid === undefined) {
             return;
         }
-        tarteaucitron.addScript('https://cdn.tagcommander.com/' + tarteaucitron.user.tagcommanderid + '.js');
+        GDPRtoolkit.addScript('https://cdn.tagcommander.com/' + GDPRtoolkit.user.tagcommanderid + '.js');
     }
 };
 
 // typekit
-tarteaucitron.services.typekit = {
+GDPRtoolkit.services.typekit = {
     "key": "typekit",
     "type": "api",
     "name": "Typekit (adobe)",
@@ -1869,10 +1869,10 @@ tarteaucitron.services.typekit = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.typekitId === undefined) {
+        if (GDPRtoolkit.user.typekitId === undefined) {
             return;
         }
-        tarteaucitron.addScript('//use.typekit.net/' + tarteaucitron.user.typekitId + '.js', '', function () {
+        GDPRtoolkit.addScript('//use.typekit.net/' + GDPRtoolkit.user.typekitId + '.js', '', function () {
             try {
                 Typekit.load();
             } catch (e) {}
@@ -1881,7 +1881,7 @@ tarteaucitron.services.typekit = {
 };
 
 // twenga
-tarteaucitron.services.twenga = {
+GDPRtoolkit.services.twenga = {
     "key": "twenga",
     "type": "ads",
     "name": "Twenga",
@@ -1891,16 +1891,16 @@ tarteaucitron.services.twenga = {
     "js": function () {
         "use strict";
 
-        if (tarteaucitron.user.twengaId === undefined || tarteaucitron.user.twengaLocale === undefined) {
+        if (GDPRtoolkit.user.twengaId === undefined || GDPRtoolkit.user.twengaLocale === undefined) {
             return;
         }
 
-        tarteaucitron.addScript('//tracker.twenga.' + tarteaucitron.user.twengaLocale + '/st/tracker_' + tarteaucitron.user.twengaId + '.js');
+        GDPRtoolkit.addScript('//tracker.twenga.' + GDPRtoolkit.user.twengaLocale + '/st/tracker_' + GDPRtoolkit.user.twengaId + '.js');
     }
 };
 
 // twitter
-tarteaucitron.services.twitter = {
+GDPRtoolkit.services.twitter = {
     "key": "twitter",
     "type": "social",
     "name": "Twitter",
@@ -1909,18 +1909,18 @@ tarteaucitron.services.twitter = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tacTwitter'], '');
-        tarteaucitron.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
+        GDPRtoolkit.fallback(['tacTwitter'], '');
+        GDPRtoolkit.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
     },
     "fallback": function () {
         "use strict";
         var id = 'twitter';
-        tarteaucitron.fallback(['tacTwitter'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacTwitter'], GDPRtoolkit.engage(id));
     }
 };
 
 // twitter embed
-tarteaucitron.services.twitterembed = {
+GDPRtoolkit.services.twitterembed = {
     "key": "twitterembed",
     "type": "social",
     "name": "Twitter (cards)",
@@ -1934,7 +1934,7 @@ tarteaucitron.services.twitterembed = {
             e,
             html;
 
-        tarteaucitron.fallback(['twitterembed-canvas'], function (x) {
+        GDPRtoolkit.fallback(['twitterembed-canvas'], function (x) {
             var uniqId = '_' + Math.random().toString(36).substr(2, 9);
             uniqIds.push(uniqId);
             html = '<div id="' + uniqId + '" ';
@@ -1948,7 +1948,7 @@ tarteaucitron.services.twitterembed = {
             return html;
         });
 
-        tarteaucitron.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs', function () {
+        GDPRtoolkit.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs', function () {
             for (i = 0; i < uniqIds.length; i += 1) {
                 e = document.getElementById(uniqIds[i]);
                 twttr.widgets.createTweet(
@@ -1958,7 +1958,7 @@ tarteaucitron.services.twitterembed = {
                         theme: e.getAttribute('theme'),
                         cards: e.getAttribute('cards'),
                         conversation: e.getAttribute('conversation'),
-                        lang: tarteaucitron.getLanguage(),
+                        lang: GDPRtoolkit.getLanguage(),
                         dnt: true,
                         width: e.getAttribute('data-width'),
                         align: e.getAttribute('data-align')
@@ -1970,15 +1970,15 @@ tarteaucitron.services.twitterembed = {
     "fallback": function () {
         "use strict";
         var id = 'twitterembed';
-        tarteaucitron.fallback(['twitterembed-canvas'], function (elem) {
+        GDPRtoolkit.fallback(['twitterembed-canvas'], function (elem) {
             elem.style.width = elem.getAttribute('data-width') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // twitter timeline
-tarteaucitron.services.twittertimeline = {
+GDPRtoolkit.services.twittertimeline = {
     "key": "twittertimeline",
     "type": "social",
     "name": "Twitter (timelines)",
@@ -1987,18 +1987,18 @@ tarteaucitron.services.twittertimeline = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['tacTwitterTimelines'], '');
-        tarteaucitron.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
+        GDPRtoolkit.fallback(['tacTwitterTimelines'], '');
+        GDPRtoolkit.addScript('//platform.twitter.com/widgets.js', 'twitter-wjs');
     },
     "fallback": function () {
         "use strict";
         var id = 'twittertimeline';
-        tarteaucitron.fallback(['tacTwitterTimelines'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['tacTwitterTimelines'], GDPRtoolkit.engage(id));
     }
 };
 
 // user voice
-tarteaucitron.services.uservoice = {
+GDPRtoolkit.services.uservoice = {
     "key": "uservoice",
     "type": "support",
     "name": "UserVoice",
@@ -2007,15 +2007,15 @@ tarteaucitron.services.uservoice = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.userVoiceApi === undefined) {
+        if (GDPRtoolkit.user.userVoiceApi === undefined) {
             return;
         }
-        tarteaucitron.addScript('//widget.uservoice.com/' + tarteaucitron.user.userVoiceApi + '.js');
+        GDPRtoolkit.addScript('//widget.uservoice.com/' + GDPRtoolkit.user.userVoiceApi + '.js');
     }
 };
 
 // vimeo
-tarteaucitron.services.vimeo = {
+GDPRtoolkit.services.vimeo = {
     "key": "vimeo",
     "type": "video",
     "name": "Vimeo",
@@ -2024,7 +2024,7 @@ tarteaucitron.services.vimeo = {
     "cookies": ['__utmt_player', '__utma', '__utmb', '__utmc', '__utmv', 'vuid', '__utmz', 'player'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['vimeo_player'], function (x) {
+        GDPRtoolkit.fallback(['vimeo_player'], function (x) {
             var video_width = x.getAttribute("data-width") || x.getAttribute("width"),
                 frame_width = 'width=',
                 video_height = x.getAttribute("data-height") || x.getAttribute("height"),
@@ -2182,16 +2182,16 @@ tarteaucitron.services.vimeo = {
     "fallback": function () {
         "use strict";
         var id = 'vimeo';
-        tarteaucitron.fallback(['vimeo_player'], function (elem) {
+        GDPRtoolkit.fallback(['vimeo_player'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // visualrevenue
-tarteaucitron.services.visualrevenue = {
+GDPRtoolkit.services.visualrevenue = {
     "key": "visualrevenue",
     "type": "analytic",
     "name": "VisualRevenue",
@@ -2200,19 +2200,19 @@ tarteaucitron.services.visualrevenue = {
     "cookies": ['__vrf', '__vrm', '__vrl', '__vry', '__vru', '__vrid', '__vrz'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.visualrevenueId === undefined) {
+        if (GDPRtoolkit.user.visualrevenueId === undefined) {
             return;
         }
         window._vrq = window._vrq || [];
-        window._vrq.push(['id', tarteaucitron.user.visualrevenueId]);
+        window._vrq.push(['id', GDPRtoolkit.user.visualrevenueId]);
         window._vrq.push(['automate', true]);
         window._vrq.push(['track', function () {}]);
-        tarteaucitron.addScript('http://a.visualrevenue.com/vrs.js');
+        GDPRtoolkit.addScript('http://a.visualrevenue.com/vrs.js');
     }
 };
 
 // vshop
-tarteaucitron.services.vshop = {
+GDPRtoolkit.services.vshop = {
     "key": "vshop",
     "type": "ads",
     "name": "vShop",
@@ -2221,18 +2221,18 @@ tarteaucitron.services.vshop = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['vcashW'], '');
-        tarteaucitron.addScript('//vshop.fr/js/w.js');
+        GDPRtoolkit.fallback(['vcashW'], '');
+        GDPRtoolkit.addScript('//vshop.fr/js/w.js');
     },
     "fallback": function () {
         "use strict";
         var id = 'vshop';
-        tarteaucitron.fallback(['vcashW'], tarteaucitron.engage(id));
+        GDPRtoolkit.fallback(['vcashW'], GDPRtoolkit.engage(id));
     }
 };
 
 // wysistat
-tarteaucitron.services.wysistat = {
+GDPRtoolkit.services.wysistat = {
     "key": "wysistat",
     "type": "analytic",
     "name": "Wysistat",
@@ -2241,17 +2241,17 @@ tarteaucitron.services.wysistat = {
     "cookies": ['Wysistat'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.wysistat === undefined) {
+        if (GDPRtoolkit.user.wysistat === undefined) {
             return;
         }
-        tarteaucitron.addScript('//www.wysistat.com/statistique.js', '', function () {
-            window.stat(tarteaucitron.user.wysistat.cli, tarteaucitron.user.wysistat.frm, tarteaucitron.user.wysistat.prm, tarteaucitron.user.wysistat.ce, tarteaucitron.user.wysistat.page, tarteaucitron.user.wysistat.roi, tarteaucitron.user.wysistat.prof, tarteaucitron.user.wysistat.cpt);
+        GDPRtoolkit.addScript('//www.wysistat.com/statistique.js', '', function () {
+            window.stat(GDPRtoolkit.user.wysistat.cli, GDPRtoolkit.user.wysistat.frm, GDPRtoolkit.user.wysistat.prm, GDPRtoolkit.user.wysistat.ce, GDPRtoolkit.user.wysistat.page, GDPRtoolkit.user.wysistat.roi, GDPRtoolkit.user.wysistat.prof, GDPRtoolkit.user.wysistat.cpt);
         });
     }
 };
 
 // xiti
-tarteaucitron.services.xiti = {
+GDPRtoolkit.services.xiti = {
     "key": "xiti",
     "type": "analytic",
     "name": "Xiti",
@@ -2260,10 +2260,10 @@ tarteaucitron.services.xiti = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.xitiId === undefined) {
+        if (GDPRtoolkit.user.xitiId === undefined) {
             return;
         }
-        var Xt_param = 's=' + tarteaucitron.user.xitiId + '&p=',
+        var Xt_param = 's=' + GDPRtoolkit.user.xitiId + '&p=',
             Xt_r,
             Xt_h,
             Xt_i,
@@ -2286,14 +2286,14 @@ tarteaucitron.services.xiti = {
         div.innerHTML = Xt_i + '&ref=' + Xt_r.replace(/[<>"]/g, '').replace(/&/g, '$') + '" title="Internet Audience">';
         document.getElementsByTagName('body')[0].appendChild(div.firstChild);
 
-        if (typeof tarteaucitron.user.xitiMore === 'function') {
-            tarteaucitron.user.xitiMore();
+        if (typeof GDPRtoolkit.user.xitiMore === 'function') {
+            GDPRtoolkit.user.xitiMore();
         }
     }
 };
 
 // AT Internet
-tarteaucitron.services.atinternet = {
+GDPRtoolkit.services.atinternet = {
     "key": "atinternet",
     "type": "analytic",
     "name": "AT Internet",
@@ -2302,23 +2302,23 @@ tarteaucitron.services.atinternet = {
     "cookies": ['atidvisitor', 'atreman', 'atredir', 'atsession', 'atuserid'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.atLibUrl === undefined) {
+        if (GDPRtoolkit.user.atLibUrl === undefined) {
             return;
         }
 
-        tarteaucitron.addScript(tarteaucitron.user.atLibUrl, '', function() {
+        GDPRtoolkit.addScript(GDPRtoolkit.user.atLibUrl, '', function() {
 
             var tag = new ATInternet.Tracker.Tag();
 
-            if (typeof tarteaucitron.user.atMore === 'function') {
-                tarteaucitron.user.atMore();
+            if (typeof GDPRtoolkit.user.atMore === 'function') {
+                GDPRtoolkit.user.atMore();
             }
         })
     }
 };
 
 // youtube
-tarteaucitron.services.youtube = {
+GDPRtoolkit.services.youtube = {
     "key": "youtube",
     "type": "video",
     "name": "YouTube",
@@ -2327,7 +2327,7 @@ tarteaucitron.services.youtube = {
     "cookies": ['VISITOR_INFO1_LIVE', 'YSC', 'PREF', 'GEUP'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['youtube_player'], function (x) {
+        GDPRtoolkit.fallback(['youtube_player'], function (x) {
             var video_id = x.getAttribute("videoID"),
                 video_width = x.getAttribute("width"),
                 frame_width = 'width=',
@@ -2356,16 +2356,16 @@ tarteaucitron.services.youtube = {
     "fallback": function () {
         "use strict";
         var id = 'youtube';
-        tarteaucitron.fallback(['youtube_player'], function (elem) {
+        GDPRtoolkit.fallback(['youtube_player'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // youtube playlist
-tarteaucitron.services.youtubeplaylist = {
+GDPRtoolkit.services.youtubeplaylist = {
     "key": "youtubeplaylist",
     "type": "video",
     "name": "YouTube (playlist)",
@@ -2374,7 +2374,7 @@ tarteaucitron.services.youtubeplaylist = {
     "cookies": ['VISITOR_INFO1_LIVE', 'YSC', 'PREF', 'GEUP'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['youtube_playlist_player'], function (x) {
+        GDPRtoolkit.fallback(['youtube_playlist_player'], function (x) {
             var playlist_id = x.getAttribute("playlistID"),
                 video_width = x.getAttribute("width"),
                 frame_width = 'width=',
@@ -2403,16 +2403,16 @@ tarteaucitron.services.youtubeplaylist = {
     "fallback": function () {
         "use strict";
         var id = 'youtubeplaylist';
-        tarteaucitron.fallback(['youtube_playlist_player'], function (elem) {
+        GDPRtoolkit.fallback(['youtube_playlist_player'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // zopim
-tarteaucitron.services.zopim = {
+GDPRtoolkit.services.zopim = {
     "key": "zopim",
     "type": "support",
     "name": "Zopim",
@@ -2421,15 +2421,15 @@ tarteaucitron.services.zopim = {
     "cookies": ['__zlcid', '__zprivacy'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.zopimID === undefined) {
+        if (GDPRtoolkit.user.zopimID === undefined) {
             return;
         }
-        tarteaucitron.addScript('//v2.zopim.com/?' + tarteaucitron.user.zopimID);
+        GDPRtoolkit.addScript('//v2.zopim.com/?' + GDPRtoolkit.user.zopimID);
     }
 };
 
 // xiti smartTag
-tarteaucitron.services.xiti_smarttag = {
+GDPRtoolkit.services.xiti_smarttag = {
     "key": "xiti_smarttag",
     "type": "analytic",
     "name": "Xiti (SmartTag)",
@@ -2438,21 +2438,21 @@ tarteaucitron.services.xiti_smarttag = {
     "cookies": ["atidvisitor", "atreman", "atredir", "atsession", "atuserid", "attvtreman", "attvtsession"],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.xiti_smarttagLocalPath !== undefined) {
-            tarteaucitron.addScript(tarteaucitron.user.xiti_smarttagLocalPath, 'smarttag', null, null, "onload", "addTracker();");
+        if (GDPRtoolkit.user.xiti_smarttagLocalPath !== undefined) {
+            GDPRtoolkit.addScript(GDPRtoolkit.user.xiti_smarttagLocalPath, 'smarttag', null, null, "onload", "addTracker();");
         } else {
-            var xitiSmarttagId = tarteaucitron.user.xiti_smarttagSiteId;
+            var xitiSmarttagId = GDPRtoolkit.user.xiti_smarttagSiteId;
             if (xitiSmarttagId === undefined) {
                 return;
             }
 
-            tarteaucitron.addScript('//tag.aticdn.net/' + xitiSmarttagId + '/smarttag.js', 'smarttag', null, null, "onload", "addTracker();");
+            GDPRtoolkit.addScript('//tag.aticdn.net/' + xitiSmarttagId + '/smarttag.js', 'smarttag', null, null, "onload", "addTracker();");
         }
     }
 };
 
 // facebook pixel
-tarteaucitron.services.facebookpixel = {
+GDPRtoolkit.services.facebookpixel = {
     "key": "facebookpixel",
     "type": "ads",
     "name": "Facebook Pixel",
@@ -2469,18 +2469,18 @@ tarteaucitron.services.facebookpixel = {
         n.loaded=!0;
         n.version='2.0';
         n.queue=[];
-        tarteaucitron.addScript('https://connect.facebook.net/en_US/fbevents.js');
-        fbq('init', tarteaucitron.user.facebookpixelId);
+        GDPRtoolkit.addScript('https://connect.facebook.net/en_US/fbevents.js');
+        fbq('init', GDPRtoolkit.user.facebookpixelId);
         fbq('track', 'PageView');
 
-        if (typeof tarteaucitron.user.facebookpixelMore === 'function') {
-            tarteaucitron.user.facebookpixelMore();
+        if (typeof GDPRtoolkit.user.facebookpixelMore === 'function') {
+            GDPRtoolkit.user.facebookpixelMore();
         }
     }
 };
 
 //Issuu
-tarteaucitron.services.issuu = {
+GDPRtoolkit.services.issuu = {
     "key": "issuu",
     "type": "other",
     "name": "Issuu",
@@ -2489,7 +2489,7 @@ tarteaucitron.services.issuu = {
     "cookies": ['__qca', 'iutk', 'mc'],
     "js": function () {
         "use strict";
-        tarteaucitron.fallback(['issuu_player'], function (x) {
+        GDPRtoolkit.fallback(['issuu_player'], function (x) {
             var issuu_id = x.getAttribute("issuuID"),
                 issuu_width = x.getAttribute("width"),
                 frame_width = 'width=',
@@ -2517,16 +2517,16 @@ tarteaucitron.services.issuu = {
     "fallback": function () {
         "use strict";
         var id = 'issuu';
-        tarteaucitron.fallback(['issuu_player'], function (elem) {
+        GDPRtoolkit.fallback(['issuu_player'], function (elem) {
             elem.style.width = elem.getAttribute('width') + 'px';
             elem.style.height = elem.getAttribute('height') + 'px';
-            return tarteaucitron.engage(id);
+            return GDPRtoolkit.engage(id);
         });
     }
 };
 
 // webmecanik
-tarteaucitron.services.webmecanik = {
+GDPRtoolkit.services.webmecanik = {
     "key": "webmecanik",
     "type": "analytic",
     "name": "Webmecanik",
@@ -2535,7 +2535,7 @@ tarteaucitron.services.webmecanik = {
     "cookies": ['mtc_id', 'mtc_sid'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.webmecanikurl === undefined) {
+        if (GDPRtoolkit.user.webmecanikurl === undefined) {
             return;
         }
 
@@ -2545,14 +2545,14 @@ tarteaucitron.services.webmecanik = {
             window.mt.q.push(arguments);
         };
 
-        tarteaucitron.addScript(tarteaucitron.user.webmecanikurl, '', function() {
+        GDPRtoolkit.addScript(GDPRtoolkit.user.webmecanikurl, '', function() {
             mt('send', 'pageview');
         });
     }
 };
 
 // google analytics multiple
-tarteaucitron.services.multiplegtag = {
+GDPRtoolkit.services.multiplegtag = {
     "key": "multiplegtag",
     "type": "analytic",
     "name": "Google Analytics (gtag.js)",
@@ -2562,8 +2562,8 @@ tarteaucitron.services.multiplegtag = {
 
         var cookies = ['_ga', '_gat', '_gid', '__utma', '__utmb', '__utmc', '__utmt', '__utmz'];
 
-        if (tarteaucitron.user.multiplegtagUa !== undefined) {
-            tarteaucitron.user.multiplegtagUa.forEach(function(ua) {
+        if (GDPRtoolkit.user.multiplegtagUa !== undefined) {
+            GDPRtoolkit.user.multiplegtagUa.forEach(function(ua) {
                 cookies.push('_gat_gtag_' + ua.replace(/-/g, '_'));
             });
         }
@@ -2574,9 +2574,9 @@ tarteaucitron.services.multiplegtag = {
         "use strict";
         window.dataLayer = window.dataLayer || [];
 
-        tarteaucitron.user.multiplegtagUa.forEach(function(ua) {
+        GDPRtoolkit.user.multiplegtagUa.forEach(function(ua) {
 
-            tarteaucitron.addScript('https://www.googletagmanager.com/gtag/js?id=' + ua, '', function () {
+            GDPRtoolkit.addScript('https://www.googletagmanager.com/gtag/js?id=' + ua, '', function () {
                 window.gtag = function gtag(){dataLayer.push(arguments);}
                 gtag('js', new Date());
                 gtag('config', ua);
@@ -2586,7 +2586,7 @@ tarteaucitron.services.multiplegtag = {
 };
 
 // Koban
-tarteaucitron.services.koban = {
+GDPRtoolkit.services.koban = {
     "key": "koban",
     "type": "analytic",
     "name": "Koban",
@@ -2595,10 +2595,10 @@ tarteaucitron.services.koban = {
     "cookies": ['kbntrk'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.kobanurl === undefined) {
+        if (GDPRtoolkit.user.kobanurl === undefined) {
             return;
         }
-        if (tarteaucitron.user.kobanapi === undefined) {
+        if (GDPRtoolkit.user.kobanapi === undefined) {
             return;
         }
         window.KobanObject = 'kb';
@@ -2607,8 +2607,8 @@ tarteaucitron.services.koban = {
             window.kb.q.push(arguments);
         };
         window.kb.l = new Date();
-        kb('reg', tarteaucitron.user.kobanapi);
-        tarteaucitron.addScript(tarteaucitron.user.kobanurl, '', function() {
+        kb('reg', GDPRtoolkit.user.kobanapi);
+        GDPRtoolkit.addScript(GDPRtoolkit.user.kobanurl, '', function() {
         });
     }
 };
@@ -2618,17 +2618,17 @@ tarteaucitron.services.koban = {
 /*
     1. Set the following variable before the initialization :
 
-    tarteaucitron.user.matomoId = YOUR_SITE_ID_FROM_MATOMO;
-    tarteaucitron.user.matomoHost = "YOUR_MATOMO_URL"; //eg: https://stat.mydomain.com/
+    GDPRtoolkit.user.matomoId = YOUR_SITE_ID_FROM_MATOMO;
+    GDPRtoolkit.user.matomoHost = "YOUR_MATOMO_URL"; //eg: https://stat.mydomain.com/
 
     2. Push the service :
 
-    (tarteaucitron.job = tarteaucitron.job || []).push('matomo');
+    (GDPRtoolkit.job = GDPRtoolkit.job || []).push('matomo');
 
     3. HTML
     You don't need to add any html code, if the service is autorized, the javascript is added. otherwise no.
  */
-tarteaucitron.services.matomo = {
+GDPRtoolkit.services.matomo = {
     "key": "matomo",
     "type": "analytic",
     "name": "Matomo (formerly known as Piwik)",
@@ -2637,13 +2637,13 @@ tarteaucitron.services.matomo = {
     "cookies": ['_pk_ref', '_pk_cvar', '_pk_id', '_pk_ses', '_pk_hsr', 'piwik_ignore', '_pk_uid'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.matomoId === undefined) {
+        if (GDPRtoolkit.user.matomoId === undefined) {
             return;
         }
 
         window._paq = window._paq || [];
-        window._paq.push(["setSiteId", tarteaucitron.user.matomoId]);
-        window._paq.push(["setTrackerUrl", tarteaucitron.user.matomoHost + "piwik.php"]);
+        window._paq.push(["setSiteId", GDPRtoolkit.user.matomoId]);
+        window._paq.push(["setTrackerUrl", GDPRtoolkit.user.matomoHost + "piwik.php"]);
         window._paq.push(["setDoNotTrack", 1]);
         window._paq.push(["trackPageView"]);
         window._paq.push(["setIgnoreClasses", ["no-tracking", "colorbox"]]);
@@ -2662,7 +2662,7 @@ tarteaucitron.services.matomo = {
             this.setVisitorCookieTimeout( getOriginalVisitorCookieTimeout() );
         }]);
 
-        tarteaucitron.addScript(tarteaucitron.user.matomoHost + 'piwik.js', '', '', true, 'defer', true);
+        GDPRtoolkit.addScript(GDPRtoolkit.user.matomoHost + 'piwik.js', '', '', true, 'defer', true);
 
         // waiting for piwik to be ready to check first party cookies
         var interval = setInterval(function() {
@@ -2681,7 +2681,7 @@ tarteaucitron.services.matomo = {
 
                 // if cookie starts like a piwik one, register it
                 if (cookieName.indexOf('_pk_') === 0) {
-                    tarteaucitron.services.matomo.cookies.push(cookieName);
+                    GDPRtoolkit.services.matomo.cookies.push(cookieName);
                 }
             }
         }, 100)
@@ -2691,14 +2691,14 @@ tarteaucitron.services.matomo = {
 // Hotjar
  /*
     1. Set the following variable before the initialization :
-     tarteaucitron.user.hotjarId = YOUR_WEBSITE_ID;
-    tarteaucitron.user.HotjarSv = XXXX; // Can be found in your website tracking code as "hjvs=XXXX"
+     GDPRtoolkit.user.hotjarId = YOUR_WEBSITE_ID;
+    GDPRtoolkit.user.HotjarSv = XXXX; // Can be found in your website tracking code as "hjvs=XXXX"
      2. Push the service :
-     (tarteaucitron.job = tarteaucitron.job || []).push('hotjar');
+     (GDPRtoolkit.job = GDPRtoolkit.job || []).push('hotjar');
      3. HTML
     You don't need to add any html code, if the service is autorized, the javascript is added. otherwise no.
   */
-tarteaucitron.services.hotjar = {
+GDPRtoolkit.services.hotjar = {
     "key": "hotjar",
     "type": "analytic",
     "name": "Hotjar",
@@ -2707,24 +2707,24 @@ tarteaucitron.services.hotjar = {
     "cookies": ["hjClosedSurveyInvites", "_hjDonePolls", "_hjMinimizedPolls", "_hjDoneTestersWidgets", "_hjMinimizedTestersWidgets", "_hjDoneSurveys", "_hjIncludedInSample", "_hjShownFeedbackMessage"],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.hotjarId === undefined || tarteaucitron.user.HotjarSv === undefined) {
+        if (GDPRtoolkit.user.hotjarId === undefined || GDPRtoolkit.user.HotjarSv === undefined) {
             return;
         }
          window.hj = window.hj || function() {
             (window.hj.q = window.hj.q || []).push(arguments)
         };
         window._hjSettings = {
-            hjid: tarteaucitron.user.hotjarId,
-            hjsv: tarteaucitron.user.HotjarSv
+            hjid: GDPRtoolkit.user.hotjarId,
+            hjsv: GDPRtoolkit.user.HotjarSv
         };
          var uri = 'https://static.hotjar.com/c/hotjar-';
         var extension = '.js?sv=';
-        tarteaucitron.addScript(uri + window._hjSettings.hjid + extension + window._hjSettings.hjsv);
+        GDPRtoolkit.addScript(uri + window._hjSettings.hjid + extension + window._hjSettings.hjsv);
     }
 };
 
 // bing ads universal event tracking
-tarteaucitron.services.bingads = {
+GDPRtoolkit.services.bingads = {
     'key': 'bingads',
     'type': 'ads',
     'name': 'Bing Ads Universal Event Tracking',
@@ -2733,14 +2733,14 @@ tarteaucitron.services.bingads = {
     'cookies': ['_uetmsclkid'],
     'js': function () {
         'use strict';
-        var u = tarteaucitron.user.bingadsTag || 'uetq';
+        var u = GDPRtoolkit.user.bingadsTag || 'uetq';
         window[u] = window[u] || [];
 
-        tarteaucitron.addScript('https://bat.bing.com/bat.js', '', function () {
-            var bingadsCreate = {ti: tarteaucitron.user.bingadsID};
+        GDPRtoolkit.addScript('https://bat.bing.com/bat.js', '', function () {
+            var bingadsCreate = {ti: GDPRtoolkit.user.bingadsID};
 
-            if ('bingadsStoreCookies' in tarteaucitron.user) {
-                bingadsCreate['storeConvTrackCookies'] = tarteaucitron.user.bingadsStoreCookies;
+            if ('bingadsStoreCookies' in GDPRtoolkit.user) {
+                bingadsCreate['storeConvTrackCookies'] = GDPRtoolkit.user.bingadsStoreCookies;
             }
 
             bingadsCreate.q = window[u];
@@ -2753,7 +2753,7 @@ tarteaucitron.services.bingads = {
 //Matterport
 /*
 SERVICE INIT
-    (tarteaucitron.job = tarteaucitron.job || []).push('matterport');
+    (GDPRtoolkit.job = GDPRtoolkit.job || []).push('matterport');
 
 HTML TAG
     <div class="matterport" matterportid="N2Q67sZUNUd" width="100%" height="550" parameters="&play=1"></div>
@@ -2761,7 +2761,7 @@ HTML TAG
 DELETE IFRAME
     <iframe type="text/html" width="100%" height="550" src="https://my.matterport.com/show/?m=N2Q67sZUNUd&utm_source=hit-content&play=1" frameborder="0" allowfullscreen="allowfullscreen"></iframe>'
  */
-tarteaucitron.services.matterport = {
+GDPRtoolkit.services.matterport = {
   "key": "matterport",
   "type": "other",
   "name": "Matterport",
@@ -2770,7 +2770,7 @@ tarteaucitron.services.matterport = {
   "cookies": ['__cfduid', 'ajs_anonymous_id', 'ajs_group_id', 'ajs_user_id'],
   "js": function () {
     "use strict";
-    tarteaucitron.fallback(['matterport'], function (x) {
+    GDPRtoolkit.fallback(['matterport'], function (x) {
       var matterport_id = x.getAttribute("matterportID"),
         matterport_width = x.getAttribute("width"),
         frame_width = 'width=',
@@ -2803,16 +2803,16 @@ tarteaucitron.services.matterport = {
   "fallback": function () {
     "use strict";
     var id = 'matterport';
-    tarteaucitron.fallback(['matterport'], function (elem) {
+    GDPRtoolkit.fallback(['matterport'], function (elem) {
       elem.style.width = elem.getAttribute('width') + 'px';
       elem.style.height = elem.getAttribute('height') + 'px';
-      return tarteaucitron.engage(id);
+      return GDPRtoolkit.engage(id);
     });
   }
 };
 
 // Adform
-tarteaucitron.services.adform = {
+GDPRtoolkit.services.adform = {
     "key": "adform",
     "type": "ads",
     "name": "Adform",
@@ -2822,22 +2822,22 @@ tarteaucitron.services.adform = {
     "js": function () {
         "use strict";
 
-        if (tarteaucitron.user.adformpm === undefined || tarteaucitron.user.adformpagename === undefined) {
+        if (GDPRtoolkit.user.adformpm === undefined || GDPRtoolkit.user.adformpagename === undefined) {
             return;
         }
 
         window._adftrack = {
-            pm: tarteaucitron.user.adformpm,
+            pm: GDPRtoolkit.user.adformpm,
             divider: encodeURIComponent('|'),
-            pagename: encodeURIComponent(tarteaucitron.user.adformpagename)
+            pagename: encodeURIComponent(GDPRtoolkit.user.adformpagename)
         };
 
-        tarteaucitron.addScript("https://track.adform.net/serving/scripts/trackpoint/async/");
+        GDPRtoolkit.addScript("https://track.adform.net/serving/scripts/trackpoint/async/");
     }
 };
 
 // Active Campaign
-tarteaucitron.services.activecampaign = {
+GDPRtoolkit.services.activecampaign = {
     "key": "activecampaign",
     "type": "ads",
     "name": "Active Campaign",
@@ -2846,18 +2846,18 @@ tarteaucitron.services.activecampaign = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.actid === undefined) {
+        if (GDPRtoolkit.user.actid === undefined) {
             return;
         }
 
         window.trackcmp_email = '';
 
-        tarteaucitron.addScript('https://trackcmp.net/visit?actid='+tarteaucitron.user.actid+'&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href));
+        GDPRtoolkit.addScript('https://trackcmp.net/visit?actid='+GDPRtoolkit.user.actid+'&e='+encodeURIComponent(trackcmp_email)+'&r='+encodeURIComponent(document.referrer)+'&u='+encodeURIComponent(window.location.href));
     }
 };
 
 // tawk.to
-tarteaucitron.services.tawkto = {
+GDPRtoolkit.services.tawkto = {
     "key": "tawkto",
     "type": "support",
     "name": "Tawk.to chat",
@@ -2866,20 +2866,20 @@ tarteaucitron.services.tawkto = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.tawktoId === undefined) {
+        if (GDPRtoolkit.user.tawktoId === undefined) {
             return;
         }
 
         window.Tawk_API=window.Tawk_API||{};
         window.Tawk_LoadStart=new Date();
 
-        tarteaucitron.addScript('https://embed.tawk.to/' + tarteaucitron.user.tawktoId + '/default');
+        GDPRtoolkit.addScript('https://embed.tawk.to/' + GDPRtoolkit.user.tawktoId + '/default');
     }
 
 };
 
 // getquanty
-tarteaucitron.services.getquanty = {
+GDPRtoolkit.services.getquanty = {
     "key": "getquanty",
     "type": "analytic",
     "name": "GetQuanty",
@@ -2888,20 +2888,20 @@ tarteaucitron.services.getquanty = {
     "cookies": [],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.getguanty === undefined) {
+        if (GDPRtoolkit.user.getguanty === undefined) {
             return;
         }
 
         window.webleads_site_ids = window.webleads_site_ids || [];
-        window.webleads_site_ids.push(tarteaucitron.user.getguanty);
+        window.webleads_site_ids.push(GDPRtoolkit.user.getguanty);
 
-        tarteaucitron.addScript('https://stats.webleads-tracker.com/js');
-        tarteaucitron.addScript('https://get.smart-data-systems.com/track?site_id=' + tarteaucitron.user.getguanty);
+        GDPRtoolkit.addScript('https://stats.webleads-tracker.com/js');
+        GDPRtoolkit.addScript('https://get.smart-data-systems.com/track?site_id=' + GDPRtoolkit.user.getguanty);
     }
 };
 
 // emolytics
-tarteaucitron.services.emolytics = {
+GDPRtoolkit.services.emolytics = {
     "key": "emolytics",
     "type": "analytic",
     "name": "Emolytics",
@@ -2910,18 +2910,18 @@ tarteaucitron.services.emolytics = {
     "cookies": ['__hssc', '__hssrc', '__hstc', '_ga', '_gid', 'hubspotutk', 'lang', 'incap_ses_', 'nlbi_', 'visid_incap_'],
     "js": function () {
         "use strict";
-        if (tarteaucitron.user.emolyticsID === undefined) {
+        if (GDPRtoolkit.user.emolyticsID === undefined) {
             return;
         }
         var scriptEmolytics = document.createElement('script');
-        scriptEmolytics.text = 'var getsmily_id="'+tarteaucitron.user.emolyticsID+'";';
+        scriptEmolytics.text = 'var getsmily_id="'+GDPRtoolkit.user.emolyticsID+'";';
         document.getElementsByTagName('body')[0].appendChild(scriptEmolytics);
-        tarteaucitron.addScript('https://cdn.emolytics.com/script/emolytics-widget.js')
+        GDPRtoolkit.addScript('https://cdn.emolytics.com/script/emolytics-widget.js')
     }
 };
 
 // youtubeapi
-tarteaucitron.services.youtubeapi = {
+GDPRtoolkit.services.youtubeapi = {
     "key": "youtubeapi",
     "type": "video",
     "name": "Youtube (Js API)",
@@ -2930,6 +2930,6 @@ tarteaucitron.services.youtubeapi = {
     "cookies": [],
     "js": function () {
         "use strict";
-        tarteaucitron.addScript('https://www.youtube.com/player_api');
+        GDPRtoolkit.addScript('https://www.youtube.com/player_api');
     }
 };

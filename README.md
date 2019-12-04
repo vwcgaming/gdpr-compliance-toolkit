@@ -1,14 +1,14 @@
 [![](https://data.jsdelivr.com/v1/package/gh/AmauriC/tarteaucitron.js/badge)](https://www.jsdelivr.com/package/gh/AmauriC/tarteaucitron.js) 
 [![npm](https://img.shields.io/npm/v/tarteaucitronjs.svg)](https://www.npmjs.com/package/tarteaucitronjs) [![GitHub contributors](https://img.shields.io/github/contributors/AmauriC/tarteaucitron.js.svg)](https://github.com/AmauriC/tarteaucitron.js/graphs/contributors)
 
-tarteaucitron.js
+GDPRtoolkit
 ================
-Comply to the european cookie law is simple with the french *tarte au citron*.
+Comply to the european cookie law.
 
 # What is this script?
 The european cookie law regulates the management of cookies and you should ask your visitors their consent before exposing them to third party services.
 
-Clearly this script will:
+This script will:
 - Disable all services by default,
 - Display a banner on the first page view and a small one on other pages,
 - Display a panel to allow or deny each services one by one,
@@ -20,21 +20,19 @@ Bonus:
 - Incorporate a fallback system (display a link instead of social button and a static banner instead of advertising).
 
 
-# Installation guide
-[Visit opt-out.ferank.eu](https://opt-out.ferank.eu/)
 
 
 # How to use
 
 ```html
-<script type="text/javascript" src="/tarteaucitron/tarteaucitron.js"></script>
+<script type="text/javascript" src="/GDPRtoolkit/GDPRtoolkit.js"></script>
 
 <script type="text/javascript">
-tarteaucitron.init({
+GDPRtoolkit.init({
     "privacyUrl": "", /* Privacy policy url */
 
-    "hashtag": "#tarteaucitron", /* Open the panel with this hashtag */
-    "cookieName": "tarteaucitron", /* Cookie name */
+    "hashtag": "#GDPRtoolkit", /* Open the panel with this hashtag */
+    "cookieName": "GDPRtoolkit", /* Cookie name */
     
     "orientation": "middle", /* Banner position (top - bottom) */
     "showAlertSmall": true, /* Show the small banner on bottom right */
@@ -47,7 +45,7 @@ tarteaucitron.init({
 
     "removeCredit": false, /* Remove credit link */
     "moreInfoLink": true, /* Show more info link */
-    "useExternalCss": false, /* If false, the tarteaucitron.css file will be loaded */
+    "useExternalCss": false, /* If false, the GDPRtoolkit.css file will be loaded */
 
     //"cookieDomain": ".my-multisite-domaine.fr", /* Shared cookie for subdomain website */
                           

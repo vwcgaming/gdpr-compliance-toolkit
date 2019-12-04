@@ -1,0 +1,774 @@
+.modal-open{
+    overflow: hidden;
+    height: 100%;
+}
+
+#contentWrapper {display:unset;}
+
+/***
+* Reset CSS
+*/
+#GDPRtoolkitRoot div, #GDPRtoolkitRoot span, #GDPRtoolkitRoot applet, #GDPRtoolkitRoot object, #GDPRtoolkitRoot iframe, #GDPRtoolkitRoot h1, #GDPRtoolkitRoot h2, #GDPRtoolkitRoot h3, #GDPRtoolkitRoot h4, #GDPRtoolkitRoot h5, #GDPRtoolkitRoot h6, #GDPRtoolkitRoot p, #GDPRtoolkitRoot blockquote, #GDPRtoolkitRoot pre, #GDPRtoolkitRoot a, #GDPRtoolkitRoot abbr, #GDPRtoolkitRoot acronym, #GDPRtoolkitRoot address, #GDPRtoolkitRoot big, #GDPRtoolkitRoot cite, #GDPRtoolkitRoot code, #GDPRtoolkitRoot del, #GDPRtoolkitRoot dfn, #GDPRtoolkitRoot em, #GDPRtoolkitRoot img, #GDPRtoolkitRoot ins, #GDPRtoolkitRoot kbd, #GDPRtoolkitRoot q, #GDPRtoolkitRoot s, #GDPRtoolkitRoot samp, #GDPRtoolkitRoot small, #GDPRtoolkitRoot strike, #GDPRtoolkitRoot strong, #GDPRtoolkitRoot sub, #GDPRtoolkitRoot sup, #GDPRtoolkitRoot tt, #GDPRtoolkitRoot var, #GDPRtoolkitRoot b, #GDPRtoolkitRoot u, #GDPRtoolkitRoot i, #GDPRtoolkitRoot center, #GDPRtoolkitRoot dl, #GDPRtoolkitRoot dt, #GDPRtoolkitRoot dd, #GDPRtoolkitRoot ol, #GDPRtoolkitRoot ul, #GDPRtoolkitRoot li, #GDPRtoolkitRoot fieldset, #GDPRtoolkitRoot form, #GDPRtoolkitRoot label, #GDPRtoolkitRoot legend, #GDPRtoolkitRoot table, #GDPRtoolkitRoot caption, #GDPRtoolkitRoot tbody, #GDPRtoolkitRoot tfoot, #GDPRtoolkitRoot thead, #GDPRtoolkitRoot tr, #GDPRtoolkitRoot th, #GDPRtoolkitRoot td, #GDPRtoolkitRoot article, #GDPRtoolkitRoot aside, #GDPRtoolkitRoot canvas, #GDPRtoolkitRoot details, #GDPRtoolkitRoot embed, #GDPRtoolkitRoot figure, #GDPRtoolkitRoot figcaption, #GDPRtoolkitRoot footer, #GDPRtoolkitRoot header, #GDPRtoolkitRoot hgroup, #GDPRtoolkitRoot menu, #GDPRtoolkitRoot nav, #GDPRtoolkitRoot output, #GDPRtoolkitRoot ruby, #GDPRtoolkitRoot section, #GDPRtoolkitRoot summary, #GDPRtoolkitRoot time, #GDPRtoolkitRoot mark, #GDPRtoolkitRoot audio, #GDPRtoolkitRoot video {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 100%;
+    font: inherit;
+    vertical-align: baseline;
+    /*background: initial;*/
+    text-align: initial;
+    text-shadow: initial;
+}
+/* HTML5 display-role reset for older browsers */
+#GDPRtoolkitRoot article, #GDPRtoolkitRoot aside, #GDPRtoolkitRoot details, #GDPRtoolkitRoot figcaption, #GDPRtoolkitRoot figure, #GDPRtoolkitRoot footer, #GDPRtoolkitRoot header, #GDPRtoolkitRoot hgroup, #GDPRtoolkitRoot menu, #GDPRtoolkitRoot nav, #GDPRtoolkitRoot section {
+    display: block;
+}
+#GDPRtoolkitRoot ol, #GDPRtoolkitRoot ul {
+    list-style: none;
+}
+#GDPRtoolkitRoot blockquote, #GDPRtoolkitRoot q {
+    quotes: none;
+}
+#GDPRtoolkitRoot blockquote:before, #GDPRtoolkitRoot blockquote:after, #GDPRtoolkitRoot q:before, #GDPRtoolkitRoot q:after {
+    content: '';
+    content: none;
+}
+#GDPRtoolkitRoot table {
+    border-collapse: collapse;
+    border-spacing: 0;
+}
+
+#GDPRtoolkitRoot a:focus, #GDPRtoolkitRoot button:focus {
+    /*outline: 2px solid #cb3333;*/
+}
+
+/***
+ * Better scroll management
+ */
+div#GDPRtoolkitMainLineOffset {
+    margin-top: 0!important;
+}
+
+div#GDPRtoolkitServices {
+    margin-top: 21px!important;
+}
+
+#GDPRtoolkitServices::-webkit-scrollbar {
+    width: 5px;
+}
+
+#GDPRtoolkitServices::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 0 rgba(0,0,0,0);
+}
+
+#GDPRtoolkitServices::-webkit-scrollbar-thumb {
+  background-color: #ddd;
+  outline: 0px solid slategrey;
+}
+
+div#GDPRtoolkitServices {
+    box-shadow: 0 0 35px #575757;
+}
+
+/***
+ * Responsive layout for the control panel
+ */
+@media screen and (max-width:479px) {
+    #GDPRtoolkit .GDPRtoolkitLine .GDPRtoolkitName {
+        width: 90% !important;
+    }
+
+    #GDPRtoolkit .GDPRtoolkitLine .GDPRtoolkitAsk {
+        float: left !important;
+        margin: 10px 15px 5px;
+    }
+}
+
+@media screen and (max-width:767px) {
+    #GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer, #GDPRtoolkit {
+        background: #fff;
+        border: 0 !important;
+        bottom: 0 !important;
+        height: 100% !important;
+        left: 0 !important;
+        margin: 0 !important;
+        max-height: 100% !important;
+        max-width: 100% !important;
+        top: 0 !important;
+        width: 100% !important;
+    }
+
+    #GDPRtoolkit .GDPRtoolkitBorder {
+        border: 0 !important;
+    }
+
+    #GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList {
+        border: 0 !important;
+    }
+
+    #GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitTitle {
+        text-align: left !important;
+    }
+
+    .GDPRtoolkitName .GDPRtoolkitH2 {
+        max-width: 80%;
+    }
+
+    #GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitAsk {
+        text-align: center !important;
+    }
+
+        #GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitAsk button {
+            margin-bottom: 5px;
+        }
+}
+
+@media screen and (min-width:768px) and (max-width:991px) {
+    #GDPRtoolkit {
+        border: 0 !important;
+        left: 0 !important;
+        margin: 0 5% !important;
+        max-height: 80% !important;
+        width: 90% !important;
+    }
+}
+
+/***
+ * Common value
+ */
+#GDPRtoolkit * {
+    zoom: 1;
+}
+
+#GDPRtoolkitRoot div#GDPRtoolkit {
+    left: 0;
+    right: 0;
+    margin: auto;
+}
+
+#GDPRtoolkitRoot button#GDPRtoolkitBack {
+    background: #eee;
+}
+
+#GDPRtoolkit .clear {
+    clear: both;
+}
+
+#GDPRtoolkit a {
+    color: rgb(66, 66, 66);
+    font-size: 11px;
+    font-weight: 700;
+    text-decoration: none;
+}
+
+#GDPRtoolkitRoot button {
+    background: transparent;
+    border: 0;
+}
+
+#GDPRtoolkitAlertBig strong, #GDPRtoolkitAlertSmall strong,
+#GDPRtoolkitAlertBig a, #GDPRtoolkitAlertSmall a {
+    color: #fff;
+}
+
+#GDPRtoolkit strong {
+    font-size: 22px;
+    font-weight: 500;
+}
+
+#GDPRtoolkit ul {
+    padding: 0;
+}
+
+#GDPRtoolkit .GDPRtoolkitH1, #GDPRtoolkit .GDPRtoolkitH2, #GDPRtoolkit .GDPRtoolkitH3, #GDPRtoolkit .GDPRtoolkitH4, #GDPRtoolkit .GDPRtoolkitH5, #GDPRtoolkit .GDPRtoolkitH6 {
+  display: block;
+}
+
+.cookie-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+/***
+ * Root div added just before </body>
+ */
+#GDPRtoolkitRoot {
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 100%;
+}
+
+#GDPRtoolkitRoot * {
+    box-sizing: initial;
+    color: #333;
+    font-family: sans-serif !important;
+    font-size: 14px;
+    line-height: normal;
+    vertical-align: initial;
+}
+
+#GDPRtoolkitRoot .GDPRtoolkitH1 {
+    font-size: 1.5em;
+    text-align: center;
+    color: #fff;
+    margin: 15px 0 28px;
+}
+
+#GDPRtoolkitRoot .GDPRtoolkitH2 {
+    display: inline-block;
+    margin: 12px 0 0 10px;
+    color: #fff;
+}
+
+#GDPRtoolkitCookiesNumberBis.GDPRtoolkitH2 {
+    margin-left: 0;
+}
+
+/***
+ * Control panel
+ */
+#GDPRtoolkitBack {
+    background: #fff;
+    display: none;
+    height: 100%;
+    left: 0;
+    opacity: 0.7;
+    position: fixed;
+    top: 0;
+    width: 100%;
+    z-index: 2147483646;
+}
+
+#GDPRtoolkit {
+    display: none;
+    max-height: 80%;
+    left: 50%;
+    margin: 0 auto 0 -430px;
+    padding: 0;
+    position: fixed;
+    top: 6%;
+    width: 860px;
+    z-index: 2147483647;
+}
+
+#GDPRtoolkit .GDPRtoolkitBorder {
+    background: #fff;
+    border: 2px solid #333;
+    border-top: 0;
+    height: auto;
+    overflow: auto;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitClosePanelCookie,
+#GDPRtoolkit #GDPRtoolkitClosePanel {
+    background: #333333;
+    color: #fff;
+    cursor: pointer;
+    font-size: 12px;
+    font-weight: 700;
+    text-decoration: none;
+    padding: 4px 0;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    width: 70px;
+}
+
+#GDPRtoolkit #GDPRtoolkitDisclaimer {
+    color: #555;
+    font-size: 12px;
+    margin: 15px auto 0;
+    width: 80%;
+}
+
+.GDPRtoolkitSelfLink, #GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitHidden,
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitHidden {
+    background: rgba(51, 51, 51, 0.07);
+}a.GDPRtoolkitSelfLink {
+    text-align: center!important;
+    display: block;
+    padding: 7px!important;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitHidden {
+    display: none;
+    position: relative;
+}
+
+#GDPRtoolkitCookiesList .GDPRtoolkitH3.GDPRtoolkitTitle {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitTitle, 
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitTitle button, 
+#GDPRtoolkit #GDPRtoolkitInfo, 
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitDetails {
+    color: #fff;
+    display: inline-block;
+    font-size: 14px;
+    font-weight: 700;
+    margin: 20px 0px 0px;
+    padding: 5px 20px;
+    text-align: left;
+    width: auto;
+    background: #333;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitName a,
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitTitle a {
+    color: #fff;
+    font-weight: 500;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitName a:hover,
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitTitle a:hover {
+    text-decoration: none !important;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitName a {
+    font-size: 22px;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitTitle a {
+    font-size: 14px;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitTitle {
+    padding: 5px 10px;
+    margin: 0;
+}
+
+#GDPRtoolkit #GDPRtoolkitInfo,
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitDetails {
+    color: #fff;
+    display: none;
+    font-size: 12px;
+    font-weight: 500;
+    margin-top: 0;
+    max-width: 270px;
+    padding: 20px;
+    position: absolute;
+    z-index: 2147483647;
+}
+
+#GDPRtoolkit #GDPRtoolkitInfo a {
+    color: #fff;
+    text-decoration: underline;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine:hover {
+    background: rgba(51, 51, 51, 0.2);
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine {
+    background: rgba(51, 51, 51, 0.1);
+    border-left: 5px solid transparent;
+    margin: 0;
+    overflow: hidden;
+    padding: 15px 5px;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine.GDPRtoolkitIsAllowed {
+    border-color: #1B870B;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine.GDPRtoolkitIsDenied {
+    border-color: #9C1A1A;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine {
+    background: #333;
+    border: 3px solid #333;
+    border-left: 9px solid #333;
+    border-top: 5px solid #333;
+    margin-bottom: 0;
+    margin-top: 21px;
+    position: relative;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine:hover {
+    background: #333;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitName {
+    margin-left: 15px;
+    margin-top: 2px;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitName button {
+    color: #fff;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitMainLine .GDPRtoolkitAsk {
+    margin-top: 0px !important;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitName {
+    display: inline-block;
+    float: left;
+    margin-left: 10px;
+    text-align: left;
+    width: 50%;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitName a:hover {
+    text-decoration: underline;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitAsk {
+    display: inline-block;
+    float: right;
+    margin: 7px 15px 0;
+    text-align: right;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitAsk .GDPRtoolkitAllow,
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitAsk .GDPRtoolkitDeny,
+.tac_activate .GDPRtoolkitAllow {
+    background: gray;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    padding: 6px 10px;
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    border: 0;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices #GDPRtoolkitAllAllowed.GDPRtoolkitIsSelected {
+    background-color: #1B870B;
+    opacity: 1;
+}
+#GDPRtoolkit #GDPRtoolkitServices #GDPRtoolkitAllDenied.GDPRtoolkitIsSelected {
+    background-color: #9C1A1A;
+    opacity: 1;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine.GDPRtoolkitIsAllowed .GDPRtoolkitAllow {
+    background-color: #1B870B;
+}
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine.GDPRtoolkitIsDenied .GDPRtoolkitDeny {
+    background-color: #9C1A1A;
+}
+
+#GDPRtoolkit #GDPRtoolkitServices .GDPRtoolkitLine .GDPRtoolkitName .GDPRtoolkitListCookies {
+    color: #333;
+    font-size: 12px;
+}
+
+#GDPRtoolkit .GDPRtoolkitH3 {
+    font-size: 18px;
+}
+
+#GDPRtoolkit #GDPRtoolkitMainLineOffset .GDPRtoolkitName {
+    width: auto!important;
+    margin-left: 0!important;
+    font-size: 14px;
+}
+
+/***
+ * Big alert
+ */
+.GDPRtoolkitAlertBigTop {
+    top: 0;
+}
+
+.GDPRtoolkitAlertBigBottom {
+    bottom: 0;
+}
+
+#GDPRtoolkitRoot #GDPRtoolkitAlertBig {
+    background: #333;
+    color: #fff;
+    display: none;
+    font-size: 15px !important;
+    left: 0;
+    position: fixed;
+    box-sizing: content-box;
+    z-index: 2147483645;
+    text-align: center;
+    padding: 10px;
+    margin: auto;
+    width: 100%;
+}
+
+#GDPRtoolkitAlertBig #GDPRtoolkitPrivacyUrl,
+#GDPRtoolkitAlertBig #GDPRtoolkitPrivacyUrlDialog,
+#GDPRtoolkitAlertBig #GDPRtoolkitDisclaimerAlert,
+#GDPRtoolkitAlertBig #GDPRtoolkitDisclaimerAlert strong {
+    font: 15px verdana;
+    color: #fff;
+}
+
+#GDPRtoolkitAlertBig #GDPRtoolkitDisclaimerAlert strong {
+    font-weight: 700;
+}
+
+#GDPRtoolkitAlertBig #GDPRtoolkitPrivacyUrl,
+#GDPRtoolkitAlertBig #GDPRtoolkitPrivacyUrlDialog {
+    cursor: pointer;
+}
+
+#GDPRtoolkitAlertBig #GDPRtoolkitCloseAlert, #GDPRtoolkitAlertBig #GDPRtoolkitPersonalize, #GDPRtoolkit #GDPRtoolkitPrivacyUrl, #GDPRtoolkit #GDPRtoolkitPrivacyUrlDialog {
+    background: #008300;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 16px;
+    padding: 5px 10px;
+    text-decoration: none;
+    margin-left: 7px;
+}
+
+#GDPRtoolkitAlertBig #GDPRtoolkitCloseAlert, #GDPRtoolkit #GDPRtoolkitPrivacyUrl, #GDPRtoolkit #GDPRtoolkitPrivacyUrlDialog {
+    background: #fff;
+    color: #333;
+    font-size: 13px;
+    margin-bottom: 3px;
+    margin-left: 7px;
+    padding: 4px 10px;
+}
+
+#GDPRtoolkitPercentage {
+    background: #0A0!important;
+    box-shadow: 0 0 2px #fff, 0 1px 2px #555;
+    height: 5px;
+    left: 0;
+    position: fixed;
+    width: 0;
+    z-index: 2147483644;
+}
+
+/***
+ * Small alert
+ */
+
+.GDPRtoolkitAlertSmallTop,.GDPRtoolkitAlertSmallBottom {
+    bottom: 0;
+}
+
+#GDPRtoolkitAlertSmall {
+    background: #333;
+    display: none;
+    padding: 0;
+    position: fixed;
+    right: 0;
+    text-align: center;
+    width: auto;
+    z-index: 2147483646;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager {
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 11px !important;
+    padding: 8px 10px 8px;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager:hover {
+    background: rgba(255, 255, 255, 0.05);
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot {
+    background-color: gray;
+    border-radius: 5px;
+    display: block;
+    height: 8px;
+    margin-bottom: 1px;
+    margin-top: 5px;
+    overflow: hidden;
+    width: 100%;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotGreen,
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotYellow,
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotRed {
+    display: block;
+    float: left;
+    height: 100%;
+    width: 0%;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotGreen {
+    background-color: #1B870B;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotYellow {
+    background-color: #FBDA26;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitManager #GDPRtoolkitDot #GDPRtoolkitDotRed {
+    background-color: #9C1A1A;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesNumber {
+    background: rgba(255, 255, 255, 0.2);
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-size: 30px;
+    padding: 0px 10px;
+    vertical-align: top;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesNumber:hover {
+    background: rgba(255, 255, 255, 0.3);
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer {
+    display: none;
+    max-height: 70%;
+    max-width: 500px;
+    position: fixed;
+    right: 0;
+    width: 100%;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList {
+    background: #fff;
+    border: 2px solid #333;
+    color: #333;
+    font-size: 11px;
+    height: auto;
+    overflow: auto;
+    text-align: left;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList strong {
+    color: #333;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesTitle {
+    background: #333;
+    margin-top: 21px;
+    padding: 13px 0 9px 13px;
+    text-align: left;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesTitle strong {
+    color: #fff;
+    font-size: 16px;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain {
+    background: rgba(51, 51, 51, 0.1);
+    padding: 7px 5px 10px;
+    word-wrap: break-word;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain:hover {
+    background: rgba(51, 51, 51, 0.2);
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain a {
+    color: #333;
+    text-decoration: none;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain .GDPRtoolkitCookiesListLeft {
+    display: inline-block;
+    width: 50%;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain .GDPRtoolkitCookiesListLeft a strong {
+    color: darkred;
+}
+
+#GDPRtoolkitAlertSmall #GDPRtoolkitCookiesListContainer #GDPRtoolkitCookiesList .GDPRtoolkitCookiesListMain .GDPRtoolkitCookiesListRight {
+    color: #333;
+    display: inline-block;
+    font-size: 11px;
+    margin-left: 10%;
+    vertical-align: top;
+    width: 30%;
+}
+
+/***
+ * Fallback activate link
+ */
+.tac_activate {
+    background: #333;
+    color: #fff;
+    display: table;
+    font-size: 12px;
+    height: 100%;
+    line-height: initial;
+    margin: auto;
+    text-align: center;
+    width: 100%;
+}
+
+.tac_float {
+    display: table-cell;
+    text-align: center;
+    vertical-align: middle;
+}
+
+.tac_activate .tac_float strong {
+    color: #fff;
+}
+
+.tac_activate .tac_float .GDPRtoolkitAllow {
+    background-color: #1B870B;
+    display: inline-block;
+}
+
+/***
+ * CSS for services
+ */
+ins.ferank-publicite, ins.adsbygoogle {
+    text-decoration: none;
+}
+
+div.amazon_product {
+    height:240px;
+    width:120px;
+}
+.GDPRtoolkitIsAllowed .GDPRtoolkitDeny {
+    opacity: 0.4!important;
+}.GDPRtoolkitIsDenied .GDPRtoolkitAllow {
+    opacity: 0.4!important;
+}.GDPRtoolkitIsAllowed .GDPRtoolkitAllow {
+    opacity: 1!important;
+}.GDPRtoolkitIsDenied .GDPRtoolkitDeny {
+    opacity: 1!important;
+}
+.GDPRtoolkitLine .GDPRtoolkitAllow, .GDPRtoolkitLine .GDPRtoolkitDeny {
+    opacity: 0.4;
+}
+
+div#GDPRtoolkitInfo {
+    display: block!important;
+    position: relative !important;
+    text-align: center!important;
+    max-width: 80%!important;
+    padding: 15px 0!important;
+    margin: -10px auto 40px!important;
+    font-size: 1em!important;
+    border-bottom: 1px solid;
+    border-top: 1px solid;
+    border-color: #555;
+}
+
+a.GDPRtoolkitSelfLink {
+    position: absolute;
+    left: 0;
+    right: 0;
+    padding-top: 13px!important;
+    display: block;
+    text-shadow: 0 0 14px white;
+    text-transform: uppercase;
+}.GDPRtoolkitMainLine .GDPRtoolkitH2 {
+    font-size: 1.2em!important;
+    margin-top: 4px!important;
+}
+
+span.GDPRtoolkitTitle.GDPRtoolkitH3 {
+    margin-top: 12px!important;
+}
